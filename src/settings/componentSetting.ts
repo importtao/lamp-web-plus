@@ -13,14 +13,14 @@ export default {
       // 传给后台的每页显示多少条的字段
       sizeField: 'pageSize',
       // 接口返回表格数据的字段
-      listField: 'items',
+      listField: 'records',
       // 接口返回表格总数的字段
       totalField: 'total',
     },
     // 可选的分页选项
-    pageSizeOptions: ['10', '50', '80', '100'],
+    pageSizeOptions: ['10','15','20', '50', '80', '100'],
     // 默认每页显示多少条
-    defaultPageSize: 10,
+    defaultPageSize: 15,
     // 默认排序方法
     defaultSortFn: (sortInfo: SorterResult) => {
       const { field, order } = sortInfo;

@@ -92,7 +92,13 @@ export type ComponentType =
   | 'ApiSelect'
   | 'SelectOptGroup'
   | 'TreeSelect'
-  | 'Transfer'
+
+
+  | 'CategorySelect'
+  | 'UserTransfer'
+  | 'UploadImg'
+
+
   | 'RadioButtonGroup'
   | 'RadioGroup'
   | 'Checkbox'

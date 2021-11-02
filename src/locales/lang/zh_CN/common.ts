@@ -14,4 +14,16 @@ export default {
 
   redo: '刷新',
   back: '返回',
+  title:{
+    delete:'删除',
+    add:'新增',
+    edit:'编辑',
+    copy:'复制',
+  },
+  column:{
+    action: '操作'
+  },
+  tips:{
+    confirmDelete: '确认删除？'
+  }
 };

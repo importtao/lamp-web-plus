@@ -2,12 +2,13 @@ import type { VNodeChild } from 'vue';
 import type { PaginationProps } from './pagination';
 import type { FormProps } from '/@/components/Form';
 import type {
-  ColumnProps,
   TableRowSelection as ITableRowSelection,
 } from 'ant-design-vue/lib/table/interface';
-
 import { ComponentType } from './componentType';
 import { VueNode } from '/@/utils/propTypes';
+import {ColumnProps} from "ant-design-vue/es/table";
+// import {ColumnProps} from "ant-design-vue/es/table/interface";
+// import {ColumnProps} from "ant-design-vue/es/table";
 
 export declare type SortOrder = 'ascend' | 'descend';
 

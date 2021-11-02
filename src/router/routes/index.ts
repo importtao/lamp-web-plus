@@ -45,20 +45,19 @@ export const ConstRouter: AppRouteRecordRaw[] = [
     path: '/home',
     name: 'Home',
     component: LAYOUT,
-    redirect: '/home/welcome',
+    redirect: '/home/workbench',
     meta: {
       icon: 'bx:bx-home',
       title: t('routes.dashboard.welcome'),
     },
     children: [
       {
-        path: 'welcome',
-        name: 'Welcome',
-        component: () => import('/@/views/lamp/welcome/index.vue'),
+        path: 'workbench',
+        name: 'Workbench',
+        component: () => import('/@/views/dashboard/workbench/index.vue'),
         meta: {
-          title: t('routes.dashboard.welcome'),
+          title: t('routes.dashboard.workbench'),
           affix: true,
-          icon: 'bx:bx-home',
         },
       },
     ],
@@ -73,12 +72,14 @@ export const ConstRouter: AppRouteRecordRaw[] = [
       title: t('routes.dashboard.dashboard'),
     },
     children: [
+
       {
-        path: 'workbench',
-        name: 'Workbench',
-        component: () => import('/@/views/dashboard/workbench/index.vue'),
+        path: 'welcome',
+        name: 'Welcome',
+        component: () => import('/@/views/lamp/welcome/index.vue'),
         meta: {
-          title: t('routes.dashboard.workbench'),
+          title: t('routes.dashboard.welcome'),
+          icon: 'bx:bx-home',
         },
       },
       {
@@ -89,6 +90,40 @@ export const ConstRouter: AppRouteRecordRaw[] = [
           title: t('routes.dashboard.analysis'),
         },
       },
+    ],
+  },
+
+  // 内置非菜单路由部分路由不能在惨淡里显示
+  {
+    path: '/inner',
+    name: 'materialsEdit',
+    component: LAYOUT,
+    redirect: '/materialsEdit',
+    meta: {
+      icon: 'bx:bx-home',
+      title: t('routes.dashboard.dashboard'),
+    },
+    children: [
+      {
+        path: 'materialsEdit/:id',
+        name: 'materialsEdit',
+        component: () => import('/@/views/lamp/materials/materialsBaseInfo/editForm/index.vue'),
+        meta: {
+          title: '编辑物料',
+          icon: 'bx:bx-home',
+          carryParam: true,
+        },
+      },
+      {
+        path: 'materialsDetails/:id',
+        name: 'materialsDetails',
+        component: () => import('/@/views/lamp/materials/materialsBaseInfo/details/index.vue'),
+        meta: {
+          title: '物料详情',
+          icon: 'bx:bx-home',
+          carryParam: true,
+        },
+      }
     ],
   },
 ];

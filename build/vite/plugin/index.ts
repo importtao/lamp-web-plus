@@ -6,6 +6,11 @@ import vueJsx from '@vitejs/plugin-vue-jsx';
 import legacy from '@vitejs/plugin-legacy';
 
 import PurgeIcons from 'vite-plugin-purge-icons';
+// import Components from 'unplugin-vue-components/vite'
+// import  {
+//   AntDesignVueResolver
+// } from 'unplugin-vue-components/resolvers'
+
 
 import { configHtmlPlugin } from './html';
 import { configPwaConfig } from './pwa';
@@ -45,6 +50,12 @@ export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
 
   // vite-plugin-purge-icons
   vitePlugins.push(PurgeIcons());
+
+  // vitePlugins.push(Components({
+  //   resolvers: [
+  //     AntDesignVueResolver()
+  //       ]
+  // }));
 
   // vite-plugin-style-import
   vitePlugins.push(configStyleImportPlugin(isBuild));

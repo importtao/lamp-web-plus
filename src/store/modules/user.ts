@@ -216,7 +216,6 @@ class User extends VuexModule {
     const { resourceList } = perm;
     permissionStore.commitPermCodeListState(resourceList);
     permissionStore.commitPermState(perm);
-    debugger;
     return perm;
   }
 

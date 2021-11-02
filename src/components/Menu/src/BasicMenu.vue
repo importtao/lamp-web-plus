@@ -3,6 +3,7 @@
     :selectedKeys="selectedKeys"
     :defaultSelectedKeys="defaultSelectedKeys"
     :mode="mode"
+    :multiple="false"
     :openKeys="getOpenKeys"
     :inlineIndent="inlineIndent"
     :theme="theme"
@@ -45,7 +46,7 @@
     name: 'BasicMenu',
     components: {
       Menu,
-      BasicSubMenuItem,
+      BasicSubMenuItem
     },
     props: basicProps,
     emits: ['menuClick'],
@@ -164,7 +165,7 @@
         getMenuClass,
         handleOpenChange,
         getOpenKeys,
-        ...toRefs(menuState),
+        ...toRefs(menuState)
       };
     },
   });

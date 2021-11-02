@@ -20,6 +20,9 @@ import {
 
 import RadioButtonGroup from './components/RadioButtonGroup.vue';
 import ApiSelect from './components/ApiSelect.vue';
+import CategorySelect from './components/CategorySelect.vue';
+import UserTransfer from './components/UserTransfer.vue';
+import UploadImg from './components/UploadImg.vue';
 import { BasicUpload } from '/@/components/Upload';
 import { StrengthMeter } from '/@/components/StrengthMeter';
 import { IconPicker } from '/@/components/Icon';
@@ -39,6 +42,13 @@ componentMap.set('ApiSelect', ApiSelect);
 componentMap.set('TreeSelect', TreeSelect);
 componentMap.set('Switch', Switch);
 componentMap.set('RadioButtonGroup', RadioButtonGroup);
+
+
+componentMap.set('CategorySelect', CategorySelect);
+componentMap.set('UserTransfer', UserTransfer);
+componentMap.set('UploadImg', UploadImg);
+
+
 componentMap.set('RadioGroup', Radio.Group);
 componentMap.set('Checkbox', Checkbox);
 componentMap.set('CheckboxGroup', Checkbox.Group);

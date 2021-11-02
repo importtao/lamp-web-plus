@@ -1,0 +1,15 @@
+export default {
+  table: { title: '菜单列表' },
+  id: '主键',
+  label: '名称',
+  describe: '描述',
+  isGeneral: '通用菜单',
+  path: '路径',
+  component: '组件',
+  state: '状态',
+  sortValue: '排序',
+  icon: '菜单图标',
+  group: '分组',
+  parentId: '父级菜单ID',
+  readonly: '内置',
+};

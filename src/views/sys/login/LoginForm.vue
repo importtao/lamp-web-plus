@@ -72,24 +72,27 @@
       </Button>
     </FormItem>
     <ARow class="enter-x">
-      <ACol :xs="24" :md="8">
+      <ACol :xs="24" :md="12">
         <Button block @click="setLoginState(LoginStateEnum.MOBILE)">
+          <MobileOutlined />
           {{ t('sys.login.mobileSignInFormTitle') }}
         </Button>
       </ACol>
-      <ACol :md="8" :xs="24" class="xs:my-2 md:my-0 xs:mx-0 md:mx-2">
-        <Button block @click="setLoginState(LoginStateEnum.QR_CODE)">
+      <ACol :md="11" :xs="24" class="xs:my-2 md:my-0 xs:mx-0 md:mx-2">
+        <!-- <Button block @click="setLoginState(LoginStateEnum.QR_CODE)"> -->
+        <Button block>
+          <DingdingOutlined />
           {{ t('sys.login.qrSignInFormTitle') }}
         </Button>
       </ACol>
-      <ACol :md="7" :xs="24">
+      <!-- <ACol :md="7" :xs="24">
         <Button block @click="setLoginState(LoginStateEnum.REGISTER)">
           {{ t('sys.login.registerButton') }}
         </Button>
-      </ACol>
+      </ACol> -->
     </ARow>
 
-    <Divider class="enter-x">{{ t('sys.login.otherSignIn') }}</Divider>
+    <!-- <Divider class="enter-x">{{ t('sys.login.otherSignIn') }}</Divider>
 
     <div class="flex justify-evenly enter-x" :class="`${prefixCls}-sign-in-way`">
       <GithubFilled />
@@ -97,7 +100,7 @@
       <AlipayCircleFilled />
       <GoogleCircleFilled />
       <TwitterCircleFilled />
-    </div>
+    </div> -->
   </Form>
 </template>
 <script lang="ts">
@@ -105,11 +108,7 @@
 
   import { Checkbox, Form, Input, Row, Col, Button, Divider } from 'ant-design-vue';
   import {
-    GithubFilled,
-    WechatFilled,
-    AlipayCircleFilled,
-    GoogleCircleFilled,
-    TwitterCircleFilled,
+    DingdingOutlined,MobileOutlined
   } from '@ant-design/icons-vue';
   import LoginFormTitle from './LoginFormTitle.vue';
 
@@ -137,11 +136,11 @@
       Divider,
       LoginFormTitle,
       InputPassword: Input.Password,
-      GithubFilled,
-      WechatFilled,
-      AlipayCircleFilled,
-      GoogleCircleFilled,
-      TwitterCircleFilled,
+      DingdingOutlined,
+      MobileOutlined,
+      // AlipayCircleFilled,
+      // GoogleCircleFilled,
+      // TwitterCircleFilled,
     },
     setup() {
       const { t } = useI18n();
