@@ -1,8 +1,11 @@
+import {SkuItemSaveDTO} from "/@/api/lamp/materials/model/skuItemModel";
+
 export interface SkuParentPageQuery {
   materialsId: string;
   name: string;
   keyStr: string;
   orderIndex: number;
+  largeImageMode: boolean;
   remark: string;
   version: number;
   isDelete: boolean;
@@ -13,9 +16,21 @@ export interface SkuParentSaveDTO {
   name: string;
   keyStr: string;
   orderIndex: number;
+  largeImageMode: boolean;
   remark: string;
   version: number;
   isDelete: boolean;
+}
+export interface SkuViewSaveDTO {
+  materialsId: string;
+  name: string;
+  keyStr: string;
+  orderIndex: number;
+  largeImageMode: boolean;
+  remark: string;
+  version: number;
+  isDelete: boolean;
+  itemSaveDTOList: Array<SkuItemSaveDTO>
 }
 
 export interface SkuParentUpdateDTO {
@@ -24,6 +39,7 @@ export interface SkuParentUpdateDTO {
   name: string;
   keyStr: string;
   orderIndex: number;
+  largeImageMode: boolean;
   remark: string;
   version: number;
   isDelete: boolean;
@@ -34,6 +50,7 @@ export interface SkuParent {
   name?: string;
   keyStr?: string;
   orderIndex?: number;
+  largeImageMode?: boolean;
   remark?: string;
   version?: number;
   isDelete?: boolean;
@@ -44,3 +61,5 @@ export interface SkuParent {
   updatedBy?: string;
   echoMap?: Recordable;
 }
+
+

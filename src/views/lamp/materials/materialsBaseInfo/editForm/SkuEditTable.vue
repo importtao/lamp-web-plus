@@ -41,7 +41,7 @@
 <script lang="ts">
   import { Table,Tag,Input,InputNumber,Image } from 'ant-design-vue';
   import { SmileOutlined, DownOutlined } from '@ant-design/icons-vue';
-  import {defineComponent, PropType, ref,computed} from 'vue';
+  import {defineComponent, PropType, ref,computed,inject} from 'vue';
   import {SkuEdit} from "/@/api/lamp/materials/model/skuModel";
   import SkuImage from "./SkuImage.vue";
 
@@ -128,6 +128,7 @@
     },
     setup(props) {
       const skuList = ref<SkuEdit[]>([{tags:['白色','黑色'],name:'颜色'},{tags:['128G','256G'],name:'存储'}]);
+      inject('skuList',skuList)
       // skuList.value = props.state
       const columns = computed(()=>{
         let index = 0

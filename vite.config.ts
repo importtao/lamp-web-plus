@@ -39,7 +39,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       // Load proxy configuration from .env
       proxy: createProxy(VITE_PROXY),
       hmr: {
-        overlay: true,
+        overlay: false,
       },
     },
 

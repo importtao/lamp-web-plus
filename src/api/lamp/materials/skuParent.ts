@@ -1,4 +1,10 @@
-import { SkuParentSaveDTO, SkuParentUpdateDTO, SkuParent, SkuParentPageQuery } from './model/skuParentModel';
+import {
+  SkuParentSaveDTO,
+  SkuParentUpdateDTO,
+  SkuParent,
+  SkuParentPageQuery,
+  SkuViewSaveDTO
+} from './model/skuParentModel';
 import { PageParams, PageResult } from '/@/api/model/baseModel';
 import { defHttp } from '/@/utils/http/axios';
 import { RequestEnum } from '/@/enums/httpEnum';
@@ -12,6 +18,10 @@ export const Api = {
   } as AxiosRequestConfig,
   Save: {
     url: ServicePrefixEnum.MATERIALS + '/skuParent',
+    method: RequestEnum.POST,
+  } as AxiosRequestConfig,
+  SaveList: {
+    url: ServicePrefixEnum.MATERIALS + '/skuParent/list',
     method: RequestEnum.POST,
   } as AxiosRequestConfig,
   Update: {
@@ -34,6 +44,7 @@ export const page = (params: PageParams<SkuParentPageQuery>) =>
 export const query = (params: SkuParent) => defHttp.request<SkuParent[]>({ ...Api.Query, params });
 
 export const save = (params: SkuParentSaveDTO) => defHttp.request<SkuParent>({ ...Api.Save, params });
+export const saveList = (params: Array<SkuViewSaveDTO>) => defHttp.request<Array<SkuViewSaveDTO>>({ ...Api.SaveList, params });
 
 export const update = (params: SkuParentUpdateDTO) =>
   defHttp.request<SkuParent>({ ...Api.Update, params });

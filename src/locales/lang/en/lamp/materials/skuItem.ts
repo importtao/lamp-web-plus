@@ -4,6 +4,8 @@ export default {
   materialsId: 'materialsId',
   parentId: 'parentId',
   name: 'name',
+  imgUrl: 'imgUrl',
+  previewImgUrl: 'previewImgUrl',
   orderIndex: 'orderIndex',
   remark: 'remark',
   version: 'version',

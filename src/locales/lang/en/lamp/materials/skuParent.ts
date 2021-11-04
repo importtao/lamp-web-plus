@@ -5,6 +5,7 @@ export default {
   name: 'name',
   keyStr: 'keyStr',
   orderIndex: 'orderIndex',
+  largeImageMode: 'largeImageMode',
   remark: 'remark',
   version: 'version',
   isDelete: 'isDelete',

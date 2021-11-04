@@ -2,6 +2,8 @@ export interface SkuItemPageQuery {
   materialsId: string;
   parentId: string;
   name: string;
+  imgUrl: string;
+  previewImgUrl: string;
   orderIndex: number;
   remark: string;
   version: number;
@@ -12,6 +14,8 @@ export interface SkuItemSaveDTO {
   materialsId: string;
   parentId: string;
   name: string;
+  imgUrl: string;
+  previewImgUrl: string;
   orderIndex: number;
   remark: string;
   version: number;
@@ -23,6 +27,8 @@ export interface SkuItemUpdateDTO {
   materialsId: string;
   parentId: string;
   name: string;
+  imgUrl: string;
+  previewImgUrl: string;
   orderIndex: number;
   remark: string;
   version: number;
@@ -33,6 +39,8 @@ export interface SkuItem {
   materialsId?: string;
   parentId?: string;
   name?: string;
+  imgUrl?: string;
+  previewImgUrl?: string;
   orderIndex?: number;
   remark?: string;
   version?: number;
