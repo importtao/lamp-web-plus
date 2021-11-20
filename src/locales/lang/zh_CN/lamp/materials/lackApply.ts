@@ -1,0 +1,15 @@
+export default {
+  table: { title: '新物资申报表列表' },
+  id: '主键',
+  name: '名称',
+  sku: '规格',
+  unit: '单位',
+  useScene: '用途',
+  requireType: '需求类型',
+  emergencyLevel: '紧急程度',
+  status: '状态',
+  imgUrl: '图片',
+  remark: '备注',
+  version: '乐观锁',
+  isDelete: '逻辑删除',
+};

@@ -1,0 +1,17 @@
+export default {
+  table: { title: 'BuyOrder list' },
+  id: 'ID',
+  materialsId: 'materialsId',
+  skuId: 'skuId',
+  quantity: 'quantity',
+  actualQuantity: 'actualQuantity',
+  minRequireTime: 'minRequireTime',
+  expectedArrivalTime: 'expectedArrivalTime',
+  status: 'status',
+  orderIndex: 'orderIndex',
+  remark: 'remark',
+  contractInfo: 'contractInfo',
+  supplierInfo: 'supplierInfo',
+  version: 'version',
+  isDelete: 'isDelete',
+};

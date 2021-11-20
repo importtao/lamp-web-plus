@@ -1,24 +1,48 @@
 <template>
   <Table :columns="columns" :data-source="skuList" bordered :pagination="false">
-    <template #bodyCell="{ column, record }">
+    <template #bodyCell="{ column, record,index }">
       <template v-if="column.key === 'skuName'">
         <Input
           ref="inputRef"
-          v-model:value="record.k"
+          v-model:value="record.name"
           type="text"
           size="large"
           :style="{ width: '198px' }"
         />
       </template>
       <template v-else-if="column.key === 'largeImageMode'">
-        <Switch v-model:checked="record.largeImageMode" checked-children="开" un-checked-children="关"/>
+        <Switch v-model:checked="record.largeImageMode" checked-children="开"
+                un-checked-children="关"/>
+      </template>
+      <template v-else-if="column.key === 'option'">
+        <Button type="primary" :size="size" danger> <template #icon><DeleteOutlined /></template>删除</Button>
       </template>
       <template v-else>
-        <template v-for="skuDataValueItem in record.v">
-          <DropdownButton @click="handleButtonClick" style="margin-right: 8px;">
-            {{skuDataValueItem.name }}
+        <template v-for="skuItemSaveDTO in record.itemSaveDTOList">
+          <Tooltip v-if="skuItemSaveDTO.name.length > 15" :title="skuItemSaveDTO.name">
+            <DropdownButton @click="handleButtonClick" style="margin-right: 8px;">
+              {{ `${skuItemSaveDTO.name.slice(0, 15)}...` }}
+              <template #overlay>
+                <Menu @click="handleMenuClick($event,skuItemSaveDTO,record)">
+                  <MenuItem key="1">
+                    <EditOutlined/>
+                    修改
+                  </MenuItem>
+                  <MenuItem key="2">
+                    <DeleteOutlined/>
+                    删除
+                  </MenuItem>
+                </Menu>
+              </template>
+              <template #icon>
+                <SettingOutlined/>
+              </template>
+            </DropdownButton>
+          </Tooltip>
+          <DropdownButton v-else @click="handleButtonClick" style="margin-right: 8px;">
+            {{skuItemSaveDTO.name }}
             <template #overlay>
-              <Menu @click="handleMenuClick($event,skuDataValueItem,record)">
+              <Menu @click="handleMenuClick($event,skuItemSaveDTO,record)">
                 <MenuItem key="1">
                   <EditOutlined/>
                   修改
@@ -34,22 +58,11 @@
             </template>
           </DropdownButton>
 
-          <!--          <Tooltip v-if="skuDataValueItem.name.length > 15" :title="skuDataValueItem.name">-->
-          <!--            <Tag @close="handleClose(skuDataValueItem.name,record)" color="blue"-->
-          <!--                 style="height: 36px;font-size:16px;padding: 8px 8px;">-->
-          <!--              {{ `${skuDataValueItem.name.slice(0, 15)}...` }}-->
-          <!--            </Tag>-->
-          <!--          </Tooltip>-->
-          <!--          <Tag v-else @close="handleClose(skuDataValueItem.name,record)" color="blue"-->
-          <!--               style="height: 36px;font-size:16px;padding: 8px 8px;">-->
-          <!--            {{skuDataValueItem.name }}-->
-          <!--          </Tag>-->
-
         </template>
 
         <Input
           v-if="record && record.inputVisible"
-          :ref="setItemRef(el,record)"
+          :ref="setItemRef"
           v-model:value="record.inputValue"
           type="text"
           size="large"
@@ -57,11 +70,6 @@
           @blur="handleInputConfirm(record)"
           @keyup.enter="handleInputConfirm(record)"
         />
-        <!--        <Tag v-if="record && !record.inputVisible" style="height: 36px;font-size:16px;padding: 8px 8px;" color="red"-->
-        <!--             @click="showInput(record)">-->
-        <!--          <plus-outlined/>-->
-        <!--          添加规格值-->
-        <!--        </Tag>-->
         <Button danger size="large" v-if="record && !record.inputVisible"
                 @click="showInput(record,index)">
           <template #icon>
@@ -89,7 +97,7 @@
 
 </template>
 <script lang="ts">
-  import {defineComponent, ref, nextTick, unref, PropType} from 'vue';
+  import {defineComponent, ref, nextTick, onMounted, PropType} from 'vue';
   import {
     Input,
     Tag,
@@ -106,7 +114,11 @@
     Modal
   } from 'ant-design-vue';
   import {PlusOutlined, SettingOutlined, EditOutlined, DeleteOutlined} from '@ant-design/icons-vue';
-  import {SkuDataItem, SkuDataValueItem, SkuEdit} from "/@/api/lamp/materials/model/skuModel";
+  import {SkuDataItem, SkuDataValueItem} from "/@/api/lamp/materials/model/skuModel";
+  import {getListByMaterialsId} from '/@/api/lamp/materials/skuParent';
+  import {propTypes} from "/@/utils/propTypes";
+  import {SkuParent, SkuViewSaveDTO} from "/@/api/lamp/materials/model/skuParentModel";
+  import {SkuItemSaveDTO} from "/@/api/lamp/materials/model/skuItemModel";
 
   const columns = [
     {
@@ -124,7 +136,14 @@
       title: '规格',
       key: 'tags',
       dataIndex: 'tags'
-    }]
+    },
+    {
+      title: '操作',
+      key: 'option',
+      dataIndex: 'option',
+      width: 80,
+    }
+  ]
 
   export default defineComponent({
     name: 'TagsEdit',
@@ -147,55 +166,74 @@
       Modal
     },
     props: {
-      state: Object as PropType<SkuEdit[]>,
+      materialsId: propTypes.string,
     },
     emits: ['skuListChange'],
     setup(props, {emit}) {
       const modalText = ref<string>(null);
       const visible = ref<boolean>(false);
       const currentSkuDataValueItem = ref<SkuDataValueItem>(null);
-      // const inputRef = ref();
-      const inputRefs = ref<Map<String, HTMLElement>>(new Map())
+      const inputRefs = ref<Array<HTMLElement>>([])
+      const skuList = ref<SkuViewSaveDTO[]>([]);
 
       //处理for循环渲染的ref
-      const setItemRef = (el, record) => {
+      const setItemRef = (el) => {
         if (el) {
-          inputRefs.value.set(record.name, el)
+          inputRefs.value.push(el)
         }
       }
-
-
-      const skuList = ref<SkuDataItem[]>([]);
-
-      const handleClose = (removedTag: string, sku: SkuDataItem) => {
-        const skuDataValueItemList = sku.v.filter(skuDataValueItem => skuDataValueItem.name != removedTag);
-        sku.v = skuDataValueItemList
+      const handleClose = (removedTag: string, sku: SkuViewSaveDTO) => {
+        const skuDataValueItemList = sku.itemSaveDTOList.filter(skuItemSaveDTO => skuItemSaveDTO.name != removedTag);
+        sku.itemSaveDTOList = skuDataValueItemList
       };
+
+      onMounted(() => {
+        syncSku()
+      })
+
+      function getData(){
+        return skuList.value
+      }
+      function syncSku(){
+        getListByMaterialsId(props.materialsId).then(res => {
+          res.forEach(item => {
+            item.inputVisible = false
+            item.inputValue = ''
+            if(!item.itemSaveDTOList){
+              item.itemSaveDTOList = []
+            }
+          })
+          skuList.value = res
+        })
+      }
 
       //添加空白sku
       const addSku = () => {
-        let item: SkuDataItem = {
-          k: '',
-          k_s: 's' + skuList.value.length + 1,
-          k_id: '',
-          v: [],
+        let orderIndex:number = skuList.value.length + 1
+        let item: SkuViewSaveDTO = {
+          materialsId: props.materialsId,
+          name: '',
+          keyStr: 's' + orderIndex,
+          orderIndex: orderIndex,
+          itemSaveDTOList: [],
           largeImageMode: false,
           inputVisible: false
         }
         skuList.value.push(item)
         emit('skuListChange', skuList.value)
       }
-      const showInput = (sku: SkuDataItem) => {
+      const showInput = (sku: SkuViewSaveDTO, index) => {
+        console.log(index)
         sku.inputVisible = true;
-        // nextTick(() => {
-        //   inputRef.value.focus();
-        // });
+        nextTick(() => {
+          inputRefs.value[inputRefs.value.length - 1].focus();
+        });
       };
 
       const handleButtonClick = (e: Event) => {
         console.log('click left button', e);
       };
-      const handleMenuClick = (e: Event, item: SkuDataValueItem, sku: SkuDataItem) => {
+      const handleMenuClick = (e: Event, item: SkuDataValueItem, sku: SkuViewSaveDTO) => {
         if (e.key && e.key == '1') {
           //编辑
           visible.value = true;
@@ -213,17 +251,19 @@
         visible.value = false;
       };
 
-      function switchChange(checked: Boolean, event: Event) {
-        // record.largeImageMode = checked
-      }
-
-      const handleInputConfirm = (sku: SkuDataItem) => {
+      const handleInputConfirm = (sku: SkuViewSaveDTO) => {
         const inputValue = sku.inputValue;
-        let skuDataValueItemList: Array<SkuDataValueItem> = sku.v;
-        if (inputValue && skuDataValueItemList.filter(skuDataValueItem => skuDataValueItem.name === inputValue).length === 0) {
-          skuDataValueItemList = [...skuDataValueItemList, {id: '', name: inputValue}];
+        let skuItemSaveDTOList: Array<SkuItemSaveDTO> = sku.itemSaveDTOList;
+        if (inputValue && skuItemSaveDTOList.filter(skuDataValueItem => skuDataValueItem.name === inputValue).length === 0) {
+          let newItem:SkuItemSaveDTO = {
+            materialsId: props.materialsId,
+            parentId: sku.id,
+            name: inputValue,
+            orderIndex: skuItemSaveDTOList.length + 1
+          }
+          skuItemSaveDTOList = [...skuItemSaveDTOList, newItem];
           Object.assign(sku, {
-            v: skuDataValueItemList,
+            itemSaveDTOList: skuItemSaveDTOList,
             inputVisible: false,
             inputValue: '',
           });
@@ -232,9 +272,12 @@
           message.error('规格：' + inputValue + '重复！');
         }
         console.log(skuList.value)
+        Object.assign(sku, {
+          inputVisible: false,
+          inputValue: '',
+        });
       };
       return {
-        // ...toRefs(props.state),
         skuList,
         handleClose,
         showInput,
@@ -242,7 +285,8 @@
         addSku,
         columns,
         setItemRef,
-        switchChange,
+        syncSku,
+        getData,
         handleButtonClick,
         handleMenuClick,
         modalText,

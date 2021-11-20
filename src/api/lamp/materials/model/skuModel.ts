@@ -1,5 +1,6 @@
 import {SkuParent, SkuViewSaveDTO} from "/@/api/lamp/materials/model/skuParentModel";
 import {SkuItemSaveDTO} from "/@/api/lamp/materials/model/skuItemModel";
+import sku from "/@/locales/lang/zh_CN/lamp/materials/sku";
 
 export interface SkuPageQuery {
   materialsId: string;
@@ -75,6 +76,9 @@ export interface Sku {
   updatedBy?: string;
   echoMap?: Recordable;
 }
+export interface SkuDTO extends sku{
+  pathObject: Map<string,string>
+}
 
 
 export interface SkuEdit {
@@ -121,6 +125,8 @@ export interface SkuItemMessage {
   placeholder: string, // 可选值，占位文本
   extraDesc: string  // 可选值，附加描述文案
 }
+
+
 
 
 export interface SkuData {

@@ -1,0 +1,17 @@
+export default {
+  table: { title: '物资采购订单表列表' },
+  id: '主键',
+  materialsId: '物料id',
+  skuId: 'sku id',
+  quantity: '数量',
+  actualQuantity: '实际到货数量',
+  minRequireTime: '需求时间',
+  expectedArrivalTime: '预计到达时间',
+  status: '状态',
+  orderIndex: '同级排序',
+  remark: '备注',
+  contractInfo: '合同信息',
+  supplierInfo: '供应商',
+  version: '乐观锁',
+  isDelete: '逻辑删除',
+};

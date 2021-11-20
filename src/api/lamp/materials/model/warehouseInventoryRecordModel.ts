@@ -1,20 +1,24 @@
 export interface WarehouseInventoryRecordPageQuery {
-  objectId: string;
+  orderId: string;
+  warehouseId: string;
   isInFlag: boolean;
-  status: boolean;
+  status: string;
   skuId: string;
   quantity: number;
+  requireTime: string;
   optionName: string;
   version: number;
   isDelete: boolean;
 }
 
 export interface WarehouseInventoryRecordSaveDTO {
-  objectId: string;
+  orderId: string;
+  warehouseId: string;
   isInFlag: boolean;
-  status: boolean;
+  status: string;
   skuId: string;
   quantity: number;
+  requireTime: string;
   optionName: string;
   version: number;
   isDelete: boolean;
@@ -22,22 +26,26 @@ export interface WarehouseInventoryRecordSaveDTO {
 
 export interface WarehouseInventoryRecordUpdateDTO {
   id: string;
-  objectId: string;
+  orderId: string;
+  warehouseId: string;
   isInFlag: boolean;
-  status: boolean;
+  status: string;
   skuId: string;
   quantity: number;
+  requireTime: string;
   optionName: string;
   version: number;
   isDelete: boolean;
 }
 
 export interface WarehouseInventoryRecord {
-  objectId?: string;
+  orderId?: string;
+  warehouseId?: string;
   isInFlag?: boolean;
-  status?: boolean;
+  status?: string;
   skuId?: string;
   quantity?: number;
+  requireTime?: string;
   optionName?: string;
   version?: number;
   isDelete?: boolean;

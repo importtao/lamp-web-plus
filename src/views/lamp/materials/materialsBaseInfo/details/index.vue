@@ -1,66 +1,153 @@
 <template>
   <PageWrapper title="物料详情页" contentBackground>
+    <template #rightFooter>
+      <Button type="primary" @click="toMaterialsEdit">编辑物料及规格信息</Button>
+    </template>
     <Description
-      size="middle" title="退款申请"
+      size="middle" title="物料信息"
       :bordered="false"
-      :column="3"
-      :data="refundData"
-      :schema="refundSchema"
-    />
-    <a-divider />
-    <Description
-      size="middle"
-      title="用户信息"
-      :bordered="false"
-      :column="3"
-      :data="personData"
-      :schema="personSchema"
-    />
-    <a-divider />
+      :column="4"
+      :data="materialsBaseInfo"
+      :schema="materialsBaseInfoSchema"
+    >
 
-    <BasicTable @register="registerRefundTable" />
-    <a-divider />
-    <BasicTable @register="registerTimeTable" />
+    </Description>
+    <a-divider/>
+    <!--    <Description-->
+    <!--      size="middle"-->
+    <!--      title="用户信息"-->
+    <!--      :bordered="false"-->
+    <!--      :column="3"-->
+    <!--      :data="personData"-->
+    <!--      :schema="personSchema"-->
+    <!--    />-->
+    <!--    <a-divider />-->
+
+    <BasicTable @register="registerRefundTable">
+      <template #bodyCell="{ column, record, index }">
+        <template v-if="column.type === 'sku'">
+          <Tag :color="colorList[column.index/colorList.length]">
+            {{ record.pathObject[column.dataIndex] && skuItemIdMap.get(record.pathObject[column.dataIndex]).name}}
+          </Tag>
+        </template>
+        <template v-if="column.dataIndex === 'auditType'">
+          <Badge :status="record.auditType == '不审批'?'success':record.auditType == '主管审批'?'warning':'error'" :text="record.auditType" />
+        </template>
+        <template v-if="column.key === 'option'">
+          <Button type="primary" :size="size" danger @click="toSkuDetails(record)"> <template #icon><DeleteOutlined /></template>库存明细管理</Button>
+        </template>
+      </template>
+      <template #expandedRowRender="{ record }">
+        <p style="margin: 0">
+          {{ record.auditType }}
+        </p>
+      </template>
+    </BasicTable>
+<!--    <a-divider/>-->
+<!--    <BasicTable @register="registerTimeTable"/>-->
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { Description } from '/@/components/Description/index';
-  import { BasicTable, useTable } from '/@/components/Table';
-  import { PageWrapper } from '/@/components/Page';
-  import { Divider } from 'ant-design-vue';
+  import {computed, defineComponent, onMounted, ref, unref} from 'vue';
+  import {DescItem, Description} from '/@/components/Description/index';
+  import {BasicTable, useTable} from '/@/components/Table';
+  import {PageWrapper} from '/@/components/Page';
+  import {getInfoByMaterialsId} from '/@/api/lamp/materials/materialsBaseInfo';
+  import {Badge, Divider,Tag,Button} from 'ant-design-vue';
 
   import {
-    refundSchema,
-    refundData,
-    personSchema,
-    personData,
-    refundTableSchema,
+    skuCommonColumns,
     refundTimeTableSchema,
     refundTableData,
     refundTimeTableData,
   } from './data';
+  import {useRouter} from "vue-router";
+  import {SkuDTO} from "/@/api/lamp/materials/model/skuModel";
+  import {SkuItem} from "/@/api/lamp/materials/model/skuItemModel";
+  import {SkuParent} from "/@/api/lamp/materials/model/skuParentModel";
+  import {MaterialsBaseInfo} from "/@/api/lamp/materials/model/materialsBaseInfoModel";
+  import { useGo } from '/@/hooks/web/usePage';
+
+
+  const materialsBaseInfoSchema: DescItem[] = [
+    // imgUrl: '图片',
+    {
+      field: 'name',
+      label: '名称',
+    },
+    {
+      field: 'unit',
+      label: '单位',
+    },
+    {
+      field: 'useScene',
+      label: '用途',
+    }, {
+      field: 'remark',
+      label: '备注',
+    }
+  ]
+  const colorList = ['green','cyan','#2db7f5','purple']
+
   export default defineComponent({
-    components: { Description, BasicTable, PageWrapper, [Divider.name]: Divider },
+    components: {Description, BasicTable, PageWrapper, [Divider.name]: Divider,Tag,Badge,Button},
     setup() {
+      const go = useGo();
+
+      const {currentRoute} = useRouter();
+      const params = computed(() => {
+        return unref(currentRoute).params;
+      });
+      const materialsBaseInfo = ref<MaterialsBaseInfo>();
+      const skuList = ref<SkuDTO[]>();
+      const skuItemIdMap = ref<Map<string, SkuItem>>(new Map<string, SkuItem>());
+      const skuParentIdMap = ref<Map<string, SkuItem>>(new Map<string, SkuParent>());
+      onMounted(() => {
+        getInfoByMaterialsId(params.value.id).then(res => {
+          skuItemIdMap.value = new Map(Object.entries(res.skuItemIdMap))
+          skuParentIdMap.value = new Map(Object.entries(res.skuParentIdMap))
+          skuList.value = res.skuList
+          materialsBaseInfo.value = res.materialsBaseInfo
+        })
+      })
+      const columns = computed(()=>{
+        let skuColumns = []
+        skuParentIdMap.value.forEach((skuParent:SkuParent,id:string)=>{
+          skuColumns.push({
+            title: skuParent.name,
+            key: skuParent.keyStr,
+            dataIndex: skuParent.keyStr,
+            type: 'sku',
+            width: 120,
+            index: skuParent.orderIndex
+          })
+        })
+        return [
+          ...skuColumns,
+          ...skuCommonColumns
+
+        ]
+      })
       const [registerRefundTable] = useTable({
-        title: '退货商品',
-        dataSource: refundTableData,
-        columns: refundTableSchema,
+        title: '规格库存',
+        dataSource: skuList,
+        columns: columns,
         pagination: false,
         showIndexColumn: false,
-        scroll: { y: 300 },
-        showSummary: true,
-        summaryFunc: handleSummary,
+        // scroll: {y: 300},
+        bordered: true
+        // showSummary: true,
+        // summaryFunc: handleSummary,
       });
 
+
       const [registerTimeTable] = useTable({
-        title: '退货进度',
+        title: '库存变更记录',
         columns: refundTimeTableSchema,
         pagination: false,
         dataSource: refundTimeTableData,
         showIndexColumn: false,
-        scroll: { y: 300 },
+        scroll: {y: 300},
       });
 
       function handleSummary(tableData: any[]) {
@@ -78,13 +165,27 @@
           },
         ];
       }
+      function toSkuDetails(record) {
+        go(`/inner/skuDetails/`+record.id);
+      }
+      function toMaterialsEdit() {
+        go(`/inner/materialsEdit/`+params.value.id);
+      }
+
       return {
+        params,
+        skuList,
+        skuItemIdMap,
+        skuParentIdMap,
+        materialsBaseInfo,
         registerRefundTable,
         registerTimeTable,
-        refundSchema,
-        refundData,
-        personSchema,
-        personData,
+        materialsBaseInfoSchema,
+        skuCommonColumns,
+        colorList,
+        toSkuDetails,
+        toMaterialsEdit,
+        columns
       };
     },
   });

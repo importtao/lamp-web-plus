@@ -22,6 +22,7 @@ export interface SkuParentSaveDTO {
   isDelete: boolean;
 }
 export interface SkuViewSaveDTO {
+  id?:string,
   materialsId: string;
   name: string;
   keyStr: string;
@@ -30,6 +31,8 @@ export interface SkuViewSaveDTO {
   remark: string;
   version: number;
   isDelete: boolean;
+  inputVisible?: boolean,
+  inputValue?: string,
   itemSaveDTOList: Array<SkuItemSaveDTO>
 }
 

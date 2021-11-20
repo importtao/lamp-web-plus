@@ -4,7 +4,7 @@
       v-model:file-list="fileList"
       action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
       list-type="picture-card"
-      class="picture-card"
+      class="sku-uploade"
       @preview="handlePreview"
     >
       <div v-if="fileList.length < max">
@@ -91,21 +91,33 @@
     },
   });
 </script>
-<style scoped>
+<style >
   /* you can make up upload button and sample style by using stylesheets */
+  /*.ant-upload-select-picture-card i {*/
+  /*  font-size: 32px;*/
+  /*  color: #999;*/
+  /*}*/
+  /*.ant-upload{*/
+  /*  width: 40px;*/
+  /*  height: 40px;*/
+  /*}*/
+
+  /*.ant-upload-select-picture-card .ant-upload-text {*/
+  /*  !*margin-top: 4px;*!*/
+
+  /*  color: #666;*/
+  /*}*/
+  .sku-uploade > .ant-upload {
+    width: 70px;
+    height: 70px;
+  }
   .ant-upload-select-picture-card i {
     font-size: 32px;
     color: #999;
-
-  }
-  .ant-upload{
-    width: 40px;
-    height: 40px;
   }
 
   .ant-upload-select-picture-card .ant-upload-text {
-    /*margin-top: 4px;*/
-
+    margin-top: 8px;
     color: #666;
   }
 </style>

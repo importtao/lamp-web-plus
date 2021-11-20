@@ -123,6 +123,16 @@ export const ConstRouter: AppRouteRecordRaw[] = [
           icon: 'bx:bx-home',
           carryParam: true,
         },
+      },
+      {
+        path: 'skuDetails/:id',
+        name: 'skuDetails',
+        component: () => import('/@/views/lamp/materials/materialsBaseInfo/skuDetails/index.vue'),
+        meta: {
+          title: 'sku详情',
+          icon: 'bx:bx-home',
+          carryParam: true,
+        },
       }
     ],
   },

@@ -1,0 +1,15 @@
+export default {
+  table: { title: 'LackApply list' },
+  id: 'ID',
+  name: 'name',
+  sku: 'sku',
+  unit: 'unit',
+  useScene: 'useScene',
+  requireType: 'requireType',
+  emergencyLevel: 'emergencyLevel',
+  status: 'status',
+  imgUrl: 'imgUrl',
+  remark: 'remark',
+  version: 'version',
+  isDelete: 'isDelete',
+};

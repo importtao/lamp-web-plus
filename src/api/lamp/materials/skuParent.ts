@@ -36,12 +36,17 @@ export const Api = {
     url: ServicePrefixEnum.MATERIALS + '/skuParent/query',
     method: RequestEnum.POST,
   } as AxiosRequestConfig,
+  // getListByMaterialsId: {
+  //   url: ServicePrefixEnum.MATERIALS + '/skuParent/byMaterialsId',
+  //   method: RequestEnum.GET,
+  // } as AxiosRequestConfig,
 };
 
 export const page = (params: PageParams<SkuParentPageQuery>) =>
   defHttp.request<PageResult<SkuParent>>({ ...Api.Page, params });
 
 export const query = (params: SkuParent) => defHttp.request<SkuParent[]>({ ...Api.Query, params });
+export const getListByMaterialsId = (materialsId: string) => defHttp.request<SkuViewSaveDTO[]>({ url: ServicePrefixEnum.MATERIALS + '/skuParent/byMaterialsId/'+materialsId, method: RequestEnum.GET });
 
 export const save = (params: SkuParentSaveDTO) => defHttp.request<SkuParent>({ ...Api.Save, params });
 export const saveList = (params: Array<SkuViewSaveDTO>) => defHttp.request<Array<SkuViewSaveDTO>>({ ...Api.SaveList, params });

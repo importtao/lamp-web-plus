@@ -18,12 +18,12 @@
   import { useI18n } from '/@/hooks/web/useI18n';
   import { useMessage } from '/@/hooks/web/useMessage';
   import { ActionEnum } from '/@/enums/commonEnum';
-  import { Api, save, update } from '/@/api/lamp/materials/sku';
+  import { Api, save, update } from '/@/api/lamp/materials/useOrg';
   import { getValidateRules } from '/@/api/lamp/common/formValidateService';
-  import { customFormSchemaRules, editFormSchema } from './sku.data';
+  import { customFormSchemaRules, editFormSchema } from './useOrg.data';
 
   export default defineComponent({
-    name: 'SkuEdit',
+    name: 'UseOrgEdit',
     components: { BasicDrawer, BasicForm },
     emits: ['success', 'register'],
     setup(_, { emit }) {

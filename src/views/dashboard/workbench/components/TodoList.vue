@@ -22,9 +22,9 @@
               </div>
             </template>
           </ListItemMeta>
-          <a-button type="link">
+          <AntButton type="link">
             <Tag color="blue"> 待审批 </Tag>
-          </a-button>
+          </AntButton>
         </ListItem>
       </template>
     </List>
@@ -38,7 +38,7 @@
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { List, Tag, Tooltip } from 'ant-design-vue';
+  import { List, Tag, Tooltip,Button as AntButton } from 'ant-design-vue';
   import { CollapseContainer } from '/@/components/Container/index';
 
   import { EllipsisOutlined } from '@ant-design/icons-vue';
@@ -52,7 +52,7 @@
       ListItem: List.Item,
       ListItemMeta: List.Item.Meta,
       Tag,
-      Tooltip,
+      Tooltip,AntButton,
       EllipsisOutlined,
     },
     setup() {

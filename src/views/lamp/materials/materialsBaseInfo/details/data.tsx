@@ -194,3 +194,71 @@ export const refundTimeTableData: any[] = [
     t5: '1h',
   },
 ];
+
+export const  skuCommonColumns = [
+  {
+    title: '单位',
+    key: 'unit',
+    dataIndex: 'unit',
+    width: 120,
+    type: 'input'
+  },
+  {
+    title: '物料编码',
+    key: 'code',
+    dataIndex: 'code',
+    width: 120,
+    type: 'input'
+  },
+  {
+    title: '审批类型',
+    key: 'auditType',
+    dataIndex: 'auditType',
+    width: 120,
+    options:[
+      {label:'不审批',value:'不审批',checked:true},
+      {label:'主管审批',value:'主管审批',checked:false},
+      {label:'副总审批',value:'副总审批',checked:false}
+    ]
+  },
+  {
+    title: '安全库存',
+    key: 'minQuantity',
+    dataIndex: 'minQuantity',
+    width: 120,
+    type: 'inputNumber'
+  },
+  {
+    title: '实时库存',
+    key: 'quantity',
+    dataIndex: 'quantity',
+    width: 120,
+    type: 'inputNumber'
+  },
+  {
+    title: '采购指导单价',
+    key: 'price',
+    dataIndex: 'price',
+    width: 180,
+    type: 'rmb'
+  },{
+    title: '领用单价',
+    key: 'claimPrice',
+    dataIndex: 'claimPrice',
+    width: 180,
+    type: 'rmb'
+  },
+
+  {
+    title: '备注',
+    key: 'remark',
+    dataIndex: 'remark',
+    type: 'input'
+  },
+  {
+    title: '操作',
+    key: 'option',
+    dataIndex: 'option',
+    width: 140,
+  }
+]
