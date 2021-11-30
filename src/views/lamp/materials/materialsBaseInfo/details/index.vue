@@ -1,8 +1,6 @@
 <template>
-  <PageWrapper title="物料详情页" contentBackground>
-    <template #rightFooter>
-      <Button type="primary" @click="toMaterialsEdit">编辑物料及规格信息</Button>
-    </template>
+  <PageWrapper title="物料详情页" >
+
     <Description
       size="middle" title="物料信息"
       :bordered="false"
@@ -23,11 +21,11 @@
     <!--    />-->
     <!--    <a-divider />-->
 
-    <BasicTable @register="registerRefundTable">
+    <BasicTable @register="registerRefundTable" style="margin-bottom: 80px;">
       <template #bodyCell="{ column, record, index }">
         <template v-if="column.type === 'sku'">
           <Tag :color="colorList[column.index/colorList.length]">
-            {{ record.pathObject[column.dataIndex] && skuItemIdMap.get(record.pathObject[column.dataIndex]).name}}
+            {{ record.pathObject[column.dataIndex] && skuItemIdMap.get(record.pathObject[column.dataIndex]) && skuItemIdMap.get(record.pathObject[column.dataIndex]).name}}
           </Tag>
         </template>
         <template v-if="column.dataIndex === 'auditType'">
@@ -45,6 +43,9 @@
     </BasicTable>
 <!--    <a-divider/>-->
 <!--    <BasicTable @register="registerTimeTable"/>-->
+        <template #rightFooter>
+          <Button type="primary" @click="toMaterialsEdit">编辑物料及规格信息</Button>
+        </template>
   </PageWrapper>
 </template>
 <script lang="ts">
@@ -134,7 +135,7 @@
         columns: columns,
         pagination: false,
         showIndexColumn: false,
-        // scroll: {y: 300},
+        scroll: {y: 900},
         bordered: true
         // showSummary: true,
         // summaryFunc: handleSummary,

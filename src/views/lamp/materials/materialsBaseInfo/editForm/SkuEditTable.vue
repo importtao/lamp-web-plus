@@ -21,11 +21,11 @@
         <InputNumber  v-model:value="record[column.dataIndex]" :placeholder="column.title" />
       </template>
       <template v-else-if="column.type === 'radio'">
-        <RadioGroup v-model:value="record[column.dataIndex]">
-          <RadioButton v-for="radioItem in column.options" :value="radioItem.value" :checked="radioItem.checked">{{radioItem.label}}</RadioButton>
-        </RadioGroup>
+<!--        <RadioGroup v-model:value="record[column.dataIndex]">-->
+<!--          <RadioButton v-for="radioItem in column.options" :value="radioItem.value" :checked="radioItem.checked">{{radioItem.label}}</RadioButton>-->
+<!--        </RadioGroup>-->
         <Select  v-model:value="record[column.dataIndex]">
-          <a-select-option v-for="radioItem in column.options" :value="radioItem.value" :checked="radioItem.checked">{{radioItem.label}}</a-select-option>
+          <SelectOption v-for="radioItem in column.options" :value="radioItem.value" :checked="radioItem.checked">{{radioItem.label}}</SelectOption>
         </Select>
       </template>
       <template v-else-if="column.type === 'rmb'">
@@ -41,7 +41,7 @@
   </Table>
 </template>
 <script lang="ts">
-  import { Table,Tag,Input,InputNumber,Image,RadioGroup,RadioButton,Select } from 'ant-design-vue';
+  import { Table,Tag,Input,InputNumber,Image,Select,SelectOption } from 'ant-design-vue';
   import { SmileOutlined, DownOutlined } from '@ant-design/icons-vue';
   import {defineComponent, PropType, ref, computed, inject, onMounted} from 'vue';
   import {SkuDTO} from "/@/api/lamp/materials/model/skuModel";
@@ -136,8 +136,8 @@
       InputNumber,
       Image,
       Select,
+      SelectOption,
       SkuImage,
-      RadioGroup,RadioButton
     },
     name:"SkuEditTable",
     props: {

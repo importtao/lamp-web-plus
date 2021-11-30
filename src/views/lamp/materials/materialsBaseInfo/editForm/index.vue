@@ -143,7 +143,7 @@
 
 
       return {
-        skuPropertyLoading,baseInfoLoading,skuLoading,
+        skuPropertyLoading,baseInfoLoading,skuLoading,schemas,taskSchemas,
         register, registerTask, submitAll, skuProperty, params, tagsList, skuListChange, saveSkuProperty,saveSku,skuEdit
 
       };

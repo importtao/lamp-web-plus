@@ -1,9 +1,8 @@
 <template>
-  <Table :columns="columns" :data-source="skuList" bordered :pagination="false">
+  <Table :columns="columns" :data-source="skuList" bordered :pagination="false" rowKey="name">
     <template #bodyCell="{ column, record,index }">
       <template v-if="column.key === 'skuName'">
         <Input
-          ref="inputRef"
           v-model:value="record.name"
           type="text"
           size="large"
@@ -15,7 +14,7 @@
                 un-checked-children="关"/>
       </template>
       <template v-else-if="column.key === 'option'">
-        <Button type="primary" :size="size" danger> <template #icon><DeleteOutlined /></template>删除</Button>
+        <Button type="primary" :size="size" danger @click="de"> <template #icon><DeleteOutlined /></template>删除</Button>
       </template>
       <template v-else>
         <template v-for="skuItemSaveDTO in record.itemSaveDTOList">

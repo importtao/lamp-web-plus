@@ -26,6 +26,11 @@ export const columns: BasicColumn[] = [
     // width: 180,
   },
   {
+    title: '领用次数',
+    dataIndex: 'claimQuantity',
+    // width: 180,
+  },
+  {
     title: t('lamp.materials.materialsBaseInfo.remark'),
     dataIndex: 'remark',
     // width: 180,
@@ -83,6 +88,16 @@ export const editFormSchema: FormSchema[] = [
   {
     label: t('lamp.materials.materialsBaseInfo.imgUrl'),
     field: 'imgUrl',
+    component: 'Input',
+  },
+  {
+    label: '领用次数',
+    field: 'claimQuantity',
+    component: 'Input',
+  },
+  {
+    label: '搜索关键词',
+    field: 'keyword',
     component: 'Input',
   },
   {

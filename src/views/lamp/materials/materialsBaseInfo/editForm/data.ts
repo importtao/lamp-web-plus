@@ -52,6 +52,18 @@ export const schemas: FormSchema[] = [
     colProps:{span:6,offset: 1,},
   },
   {
+    label: '领用次数',
+    field: 'claimQuantity',
+    component: 'Input',
+    colProps:{span:6,offset: 1,},
+  },
+  {
+    label: '搜索关键词',
+    field: 'keyword',
+    component: 'Input',
+    colProps:{span:5},
+  },
+  {
     label: t('lamp.materials.materialsBaseInfo.remark'),
     field: 'remark',
     component: 'Input',
@@ -61,7 +73,7 @@ export const schemas: FormSchema[] = [
     label: t('lamp.materials.materialsBaseInfo.imgUrl'),
     field: 'imgUrl',
     component: 'UploadImg',
-    colProps:{span:24},
+    colProps:{span:11,offset: 1,},
   },
 
   {

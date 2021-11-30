@@ -1,5 +1,5 @@
 <template>
-  <PageWrapper dense contentFullHeight fixedHeight>
+  <PageWrapper dense >
     <BasicTable @register="registerTable">
       <template #toolbar>
         <a-button type="primary" @click="handleBatchDelete">{{
