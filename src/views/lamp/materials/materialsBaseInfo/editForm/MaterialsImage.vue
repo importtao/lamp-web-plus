@@ -21,12 +21,12 @@
 </template>
 <script lang="ts">
   import {PlusOutlined} from '@ant-design/icons-vue';
-  import {defineComponent, PropType, ref} from 'vue';
+  import {computed, defineComponent, PropType, ref,watch,onMounted} from 'vue';
   import {Modal, Upload} from 'ant-design-vue';
   import {uploadToAliyunOss} from '/@/utils/aliyun/ali-oss'
 
   import {propTypes} from "../../../../../utils/propTypes";
-  import {SkuDTO} from "/@/api/lamp/materials/model/skuModel";
+  import {MaterialsBaseInfo} from "/@/api/lamp/materials/model/materialsBaseInfoModel";
 
   function getBase64(file: File) {
     return new Promise((resolve, reject) => {
@@ -52,27 +52,37 @@
     components: {
       PlusOutlined, Upload, Modal
     },
-    name: 'SkuImage',
+    name: 'MaterialsImage',
     props: {
       // fileList: Object as PropType<SkuEdit[]>,
       max: propTypes.number,
-      skuDTO: Object as PropType<SkuDTO[]>
+      materialsBaseInfo: Object as PropType<MaterialsBaseInfo>
     },
     emits:['uploadSuccess'],
     setup(props,{ emit }) {
       const previewVisible = ref<boolean>(false);
       const previewImage = ref<string | undefined>('');
 
-      const fileList = ref<FileItem[]>([
-        ]);
-      if(props.skuDTO.imgUrl){
-        fileList.value.push({
-          uid: '-1',
-          name: 'image.png',
-          status: 'done',
-          url: props.skuDTO.imgUrl
-        })
-      }
+      const fileList = ref<FileItem[]>([]);
+      watch(props, (nweProps, oldProps) => {
+        if(props.materialsBaseInfo){
+          let uid = 0
+          fileList.value = props.materialsBaseInfo.imgUrl.trim().split(',').map(url=>{
+            uid --
+            return {
+              uid: uid,
+              name: uid+'.png',
+              status: 'done',
+              url: url
+            }
+          })
+        }
+      });
+      let result = computed(()=>{
+        if(fileList.value && fileList.value.length > 0){
+          return fileList.value.filter(item => item.url).map(item => item.url).join(',')
+        }
+      })
 
       const handleCancel = () => {
         previewVisible.value = false;
@@ -94,22 +104,15 @@
         let type = name.substr(pos);
         let fileName = `${Date.parse(new Date())}` + parseInt(Math.random() * 10000) + type
         uploadToAliyunOss(fileName, file).then((res: any) => {
-          console.log('res', res.res)
           let url = res.res.requestUrls[0]
           url = url.split('?uploadId=')[0]
-          console.log(url)
-          fileList.value = [{
-            uid: '-1',
-            name: 'image.png',
+          fileList.value[fileList.value.length -1] = {
+            uid: '-'+fileList.value.length+1,
+            name: fileList.value.length+1+'.png',
             status: 'done',
             url: url
-          }]
-          emit('uploadSuccess',url)
-          props.skuDTO.imgUrl = url
-          // file.status = 'done'
-          // file.message = '上传成功';
-          // let url = res.res.requestUrls[0]
-          // file.url = url.split('?uploadId=')[0]
+          }
+          emit('uploadSuccess',result)
         }).catch((err) => {
           console.log(err)
           file.status = 'failed'
@@ -142,7 +145,8 @@
         handlePreview,
         handleChange,
         customRequest,
-        beforeUpload
+        beforeUpload,
+        result
       };
     },
   });

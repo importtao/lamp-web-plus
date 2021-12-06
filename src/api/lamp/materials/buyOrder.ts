@@ -4,6 +4,7 @@ import { defHttp } from '/@/utils/http/axios';
 import { RequestEnum } from '/@/enums/httpEnum';
 import { ServicePrefixEnum } from '/@/enums/commonEnum';
 import type { AxiosRequestConfig } from 'axios';
+import {BuyTaskItem} from "/@/api/lamp/materials/model/buyTaskItemModel";
 
 export const Api = {
   Page: {
@@ -32,8 +33,11 @@ export const page = (params: PageParams<BuyOrderPageQuery>) =>
   defHttp.request<PageResult<BuyOrder>>({ ...Api.Page, params });
 
 export const query = (params: BuyOrder) => defHttp.request<BuyOrder[]>({ ...Api.Query, params });
+export const listBySkuId = (skuId:string) => defHttp.request<BuyOrder[]>({ url: ServicePrefixEnum.MATERIALS + '/buyOrder/listBySkuId/'+skuId, method: RequestEnum.GET});
 
 export const save = (params: BuyOrderSaveDTO) => defHttp.request<BuyOrder>({ ...Api.Save, params });
+export const customCreateBuyOrder = (params: BuyOrderSaveDTO) => defHttp.request<BuyOrder>({ url: ServicePrefixEnum.MATERIALS + '/buyOrder/customCreateBuyOrder', method: RequestEnum.POST, params });
+export const create = (skuId:string) => defHttp.request<BuyOrder>({ url: ServicePrefixEnum.MATERIALS + '/buyOrder/create/'+skuId, method: RequestEnum.POST});
 
 export const update = (params: BuyOrderUpdateDTO) =>
   defHttp.request<BuyOrder>({ ...Api.Update, params });

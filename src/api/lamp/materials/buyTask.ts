@@ -10,6 +10,10 @@ export const Api = {
     url: ServicePrefixEnum.MATERIALS + '/buyTask/page',
     method: RequestEnum.POST,
   } as AxiosRequestConfig,
+  customPage: {
+    url: ServicePrefixEnum.MATERIALS + '/buyTask/customPage',
+    method: RequestEnum.POST,
+  } as AxiosRequestConfig,
   Save: {
     url: ServicePrefixEnum.MATERIALS + '/buyTask',
     method: RequestEnum.POST,
@@ -28,8 +32,8 @@ export const Api = {
   } as AxiosRequestConfig,
 };
 
-export const page = (params: PageParams<BuyTaskPageQuery>) =>
-  defHttp.request<PageResult<BuyTask>>({ ...Api.Page, params });
+export const page = (params: PageParams<BuyTaskPageQuery>) => defHttp.request<PageResult<BuyTask>>({ ...Api.Page, params });
+export const customPage = (params: PageParams<BuyTaskPageQuery>) => defHttp.request<PageResult<BuyTask>>({ ...Api.customPage, params });
 
 export const query = (params: BuyTask) => defHttp.request<BuyTask[]>({ ...Api.Query, params });
 

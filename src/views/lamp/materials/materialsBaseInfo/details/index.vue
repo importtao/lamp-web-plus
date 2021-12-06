@@ -32,14 +32,14 @@
           <Badge :status="record.auditType == '不审批'?'success':record.auditType == '主管审批'?'warning':'error'" :text="record.auditType" />
         </template>
         <template v-if="column.key === 'option'">
-          <Button type="primary" :size="size" danger @click="toSkuDetails(record)"> <template #icon><DeleteOutlined /></template>库存明细管理</Button>
+          <Button type="primary"  danger @click="toSkuDetails(record)"> <template #icon><SettingOutlined /></template>库存明细管理</Button>
         </template>
       </template>
-      <template #expandedRowRender="{ record }">
-        <p style="margin: 0">
-          {{ record.auditType }}
-        </p>
-      </template>
+<!--      <template #expandedRowRender="{ record }">-->
+<!--        <p style="margin: 0">-->
+<!--          {{ record.auditType }}-->
+<!--        </p>-->
+<!--      </template>-->
     </BasicTable>
 <!--    <a-divider/>-->
 <!--    <BasicTable @register="registerTimeTable"/>-->
@@ -59,7 +59,6 @@
   import {
     skuCommonColumns,
     refundTimeTableSchema,
-    refundTableData,
     refundTimeTableData,
   } from './data';
   import {useRouter} from "vue-router";
@@ -68,6 +67,9 @@
   import {SkuParent} from "/@/api/lamp/materials/model/skuParentModel";
   import {MaterialsBaseInfo} from "/@/api/lamp/materials/model/materialsBaseInfoModel";
   import { useGo } from '/@/hooks/web/usePage';
+
+
+  import {SettingOutlined} from '@ant-design/icons-vue';
 
 
   const materialsBaseInfoSchema: DescItem[] = [
@@ -91,7 +93,8 @@
   const colorList = ['green','cyan','#2db7f5','purple']
 
   export default defineComponent({
-    components: {Description, BasicTable, PageWrapper, [Divider.name]: Divider,Tag,Badge,Button},
+    components: {Description, BasicTable, PageWrapper, [Divider.name]: Divider,Tag,Badge,Button,SettingOutlined},
+    name:'materialsDetails',
     setup() {
       const go = useGo();
 
@@ -134,7 +137,7 @@
         dataSource: skuList,
         columns: columns,
         pagination: false,
-        showIndexColumn: false,
+        showIndexColumn: true,
         scroll: {y: 900},
         bordered: true
         // showSummary: true,

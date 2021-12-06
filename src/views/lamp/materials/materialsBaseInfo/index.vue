@@ -1,11 +1,20 @@
 <template>
-  <PageWrapper dense >
+  <PageWrapper dense>
     <BasicTable @register="registerTable">
       <template #toolbar>
         <a-button type="primary" @click="handleBatchDelete">{{
           t('common.title.delete')
-        }}</a-button>
+          }}
+        </a-button>
         <a-button type="primary" @click="handleAdd">{{ t('common.title.add') }}</a-button>
+      </template>
+      <template #bodyCell="{ column, record, index }">
+        <template v-if="column.dataIndex === 'imgUrl'">
+          <ImagePreviewGroup>
+            <Image :width="30" v-if="record.imgUrl" v-for="url in record.imgUrl.split(',')"
+                   :src="url"/>
+          </ImagePreviewGroup>
+        </template>
       </template>
       <template #action="{ record }">
         <TableAction
@@ -35,37 +44,37 @@
         />
       </template>
     </BasicTable>
-    <EditModal @register="registerDrawer" @success="handleSuccess" />
+    <EditModal @register="registerDrawer" @success="handleSuccess"/>
   </PageWrapper>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { useI18n } from '/@/hooks/web/useI18n';
-  import { useMessage } from '/@/hooks/web/useMessage';
-  import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { PageWrapper } from '/@/components/Page';
-  import { useDrawer } from '/@/components/Drawer';
-  import { handleFetchParams } from '/@/utils/lamp/common';
-  import { ActionEnum } from '/@/enums/commonEnum';
-  import { page, remove } from '/@/api/lamp/materials/materialsBaseInfo';
-  import { columns, searchFormSchema } from './materialsBaseInfo.data';
+  import {defineComponent} from 'vue';
+  import {useI18n} from '/@/hooks/web/useI18n';
+  import {useMessage} from '/@/hooks/web/useMessage';
+  import {BasicTable, TableAction, useTable} from '/@/components/Table';
+  import {PageWrapper} from '/@/components/Page';
+  import {useDrawer} from '/@/components/Drawer';
+  import {handleFetchParams} from '/@/utils/lamp/common';
+  import {ActionEnum} from '/@/enums/commonEnum';
+  import {page, remove} from '/@/api/lamp/materials/materialsBaseInfo';
+  import {columns, searchFormSchema} from './materialsBaseInfo.data';
   import EditModal from './Edit.vue';
-  import { useGo } from '/@/hooks/web/usePage';
-
+  import {useGo} from '/@/hooks/web/usePage';
+  import {Image, ImagePreviewGroup} from 'ant-design-vue';
 
   export default defineComponent({
     name: 'MaterialsBaseInfoManagement',
-    components: { BasicTable, PageWrapper, EditModal, TableAction },
+    components: {BasicTable, PageWrapper, EditModal, TableAction, Image, ImagePreviewGroup},
     setup() {
       const go = useGo();
 
-      const { t } = useI18n();
-      const { createMessage, createConfirm } = useMessage();
+      const {t} = useI18n();
+      const {createMessage, createConfirm} = useMessage();
       // 编辑页弹窗
-      const [registerDrawer, { openDrawer }] = useDrawer();
+      const [registerDrawer, {openDrawer}] = useDrawer();
 
       // 表格
-      const [registerTable, { reload, getSelectRowKeys }] = useTable({
+      const [registerTable, {reload, getSelectRowKeys}] = useTable({
         title: t('lamp.materials.materialsBaseInfo.table.title'),
         api: page,
         columns,
@@ -85,14 +94,16 @@
           width: 360,
           title: t('common.column.action'),
           dataIndex: 'action',
-          slots: { customRender: 'action' },
+          slots: {customRender: 'action'},
         },
       });
+
       function toMaterialsEdit(record) {
-        go(`/inner/materialsEdit/`+record.id);
+        go(`/inner/materialsEdit/` + record.id);
       }
+
       function toMaterialsDetails(record) {
-        go(`/inner/materialsDetails/`+record.id);
+        go(`/inner/materialsDetails/` + record.id);
       }
 
       // 弹出复制页面

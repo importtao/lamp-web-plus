@@ -115,6 +115,16 @@ export const ConstRouter: AppRouteRecordRaw[] = [
         },
       },
       {
+        path: 'skuDetails/:id',
+        name: 'skuDetails',
+        component: () => import('/@/views/lamp/materials/materialsBaseInfo/buyTask/skuDetails/index.vue'),
+        meta: {
+          title: 'sku详情',
+          icon: 'bx:bx-home',
+          carryParam: true,
+        },
+      },
+      {
         path: 'materialsDetails/:id',
         name: 'materialsDetails',
         component: () => import('/@/views/lamp/materials/materialsBaseInfo/details/index.vue'),
@@ -125,11 +135,21 @@ export const ConstRouter: AppRouteRecordRaw[] = [
         },
       },
       {
-        path: 'skuDetails/:id',
-        name: 'skuDetails',
-        component: () => import('/@/views/lamp/materials/materialsBaseInfo/skuDetails/index.vue'),
+        path: 'taskItemDetailList/:id',
+        name: 'taskItemDetailList',
+        component: () => import('/@/views/lamp/materials/buyTask/buyTaskItemList.vue'),
         meta: {
-          title: 'sku详情',
+          title: '采购任务列表',
+          icon: 'bx:bx-home',
+          carryParam: true,
+        },
+      },
+      {
+        path: 'buyTaskOrderList/:id',
+        name: 'buyTaskOrderList',
+        component: () => import('/@/views/lamp/materials/buyTask/buyTaskOrderList.vue'),
+        meta: {
+          title: '采购任务订单',
           icon: 'bx:bx-home',
           carryParam: true,
         },

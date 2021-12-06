@@ -134,7 +134,6 @@
         })
         resourceQuery({menuId: menuId}).then(resourceList => {
           selectedResourceData.value = resourceList
-          debugger
           console.log(selectedResourceData)
         })
       }

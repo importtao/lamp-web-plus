@@ -1,6 +1,6 @@
-import {SkuParent, SkuViewSaveDTO} from "/@/api/lamp/materials/model/skuParentModel";
-import {SkuItemSaveDTO} from "/@/api/lamp/materials/model/skuItemModel";
-import sku from "/@/locales/lang/zh_CN/lamp/materials/sku";
+// import {SkuParent, SkuViewSaveDTO} from "/@/api/lamp/materials/model/skuParentModel";
+// import {SkuItemSaveDTO} from "/@/api/lamp/materials/model/skuItemModel";
+// import sku from "/@/locales/lang/zh_CN/lamp/materials/sku";
 
 export interface SkuPageQuery {
   materialsId: string;
@@ -165,59 +165,59 @@ export const properties = [
 ];
 
 //前端转换为后端对象
-export function transferSaveValueFromFront(skuDataValueItems: Array<SkuDataValueItem>, materialsId: string, parentId: string) {
-  let skuItemSaveDTOS: SkuItemSaveDTO[] = []
-  for (let i = 0; i < skuDataValueItems.length; i++) {
-    let skuDataValueItem: SkuDataValueItem = skuDataValueItems[i]
-    let skuItemSaveDTO: SkuItemSaveDTO = {
-      materialsId: materialsId,
-      parentId: parentId,
-      name: skuDataValueItem.name,
-      id: skuDataValueItem.id,
-      imgUrl: skuDataValueItem.imgUrl,
-      orderIndex: i
-    }
-    skuItemSaveDTOS.push(skuItemSaveDTO)
-  }
-  return skuItemSaveDTOS
-}
+// export function transferSaveValueFromFront(skuDataValueItems: Array<SkuDataValueItem>, materialsId: string, parentId: string) {
+//   let skuItemSaveDTOS: SkuItemSaveDTO[] = []
+//   for (let i = 0; i < skuDataValueItems.length; i++) {
+//     let skuDataValueItem: SkuDataValueItem = skuDataValueItems[i]
+//     let skuItemSaveDTO: SkuItemSaveDTO = {
+//       materialsId: materialsId,
+//       parentId: parentId,
+//       name: skuDataValueItem.name,
+//       id: skuDataValueItem.id,
+//       imgUrl: skuDataValueItem.imgUrl,
+//       orderIndex: i
+//     }
+//     skuItemSaveDTOS.push(skuItemSaveDTO)
+//   }
+//   return skuItemSaveDTOS
+// }
 
-export function transferFromFront(skuDataItems: Array<SkuDataItem>, materialsId: string) {
-  let skuParents: SkuViewSaveDTO[] = []
-  for (let i = 0; i < skuDataItems.length; i++) {
-    let skuDataItem: SkuDataItem = skuDataItems[i]
-    let skuViewSaveDTO: SkuViewSaveDTO = {
-      materialsId: materialsId,
-      name: skuDataItem.k,
-      keyStr: skuDataItem.k_s,
-      id: skuDataItem.k_id,
-      orderIndex: i,
-      largeImageMode: skuDataItem.largeImageMode,
-      itemSaveDTOList: transferSaveValueFromFront(skuDataItem.v, materialsId, skuDataItem.k_id)
-    }
-    skuParents.push(skuViewSaveDTO)
-  }
-  return skuParents
-}
+// export function transferFromFront(skuDataItems: Array<SkuDataItem>, materialsId: string) {
+//   let skuParents: SkuViewSaveDTO[] = []
+//   for (let i = 0; i < skuDataItems.length; i++) {
+//     let skuDataItem: SkuDataItem = skuDataItems[i]
+//     let skuViewSaveDTO: SkuViewSaveDTO = {
+//       materialsId: materialsId,
+//       name: skuDataItem.k,
+//       keyStr: skuDataItem.k_s,
+//       id: skuDataItem.k_id,
+//       orderIndex: i,
+//       largeImageMode: skuDataItem.largeImageMode,
+//       itemSaveDTOList: transferSaveValueFromFront(skuDataItem.v, materialsId, skuDataItem.k_id)
+//     }
+//     skuParents.push(skuViewSaveDTO)
+//   }
+//   return skuParents
+// }
 
 //后端转换为前端对象
-export function transferToFront(skuParents: Array<SkuParent>) {
-  let skuDataItems: SkuDataItem[] = []
-  for (let i = 0; i < skuParents.length; i++) {
-    let skuParent: SkuParent = skuParents[i]
-    let skuDataItem: SkuDataItem = {
-      k: skuParent.name,
-      k_s: skuParent.keyStr,
-      k_id: skuParent.id,
-      v: [],
-      largeImageMode: skuParent.largeImageMode,
-      inputVisible: false,
-      inputValue: '',
-    }
-    skuDataItems.push(skuDataItem)
-  }
-  return skuDataItems
-}
+// export function transferToFront(skuParents: Array<SkuParent>) {
+//   let skuDataItems: SkuDataItem[] = []
+//   for (let i = 0; i < skuParents.length; i++) {
+//     let skuParent: SkuParent = skuParents[i]
+//     let skuDataItem: SkuDataItem = {
+//       k: skuParent.name,
+//       k_s: skuParent.keyStr,
+//       k_id: skuParent.id,
+//       v: [],
+//       largeImageMode: skuParent.largeImageMode,
+//       inputVisible: false,
+//       inputValue: '',
+//     }
+//     skuDataItems.push(skuDataItem)
+//   }
+//   return skuDataItems
+// }
 
 // {
 //   id: 2259, // skuId
@@ -227,20 +227,20 @@ export function transferToFront(skuParents: Array<SkuParent>) {
 //   stock_num: 110 // 当前 sku 组合对应的库存
 // }
 
-export function transferSkuItemPropertyToFront(skuParents: Array<SkuParent>) {
-  let skuDataItems: SkuItemProperty[] = []
-  for (let i = 0; i < skuParents.length; i++) {
-    let skuParent: SkuParent = skuParents[i]
-    let skuDataItem: SkuItemProperty = {
-      k: skuParent.name,
-      k_s: skuParent.keyStr,
-      k_id: skuParent.id,
-      v: [],
-      largeImageMode: skuParent.largeImageMode,
-      inputVisible: false,
-      inputValue: '',
-    }
-    skuDataItems.push(skuDataItem)
-  }
-  return skuDataItems
-}
+// export function transferSkuItemPropertyToFront(skuParents: Array<SkuParent>) {
+//   let skuDataItems: SkuItemProperty[] = []
+//   for (let i = 0; i < skuParents.length; i++) {
+//     let skuParent: SkuParent = skuParents[i]
+//     let skuDataItem: SkuItemProperty = {
+//       k: skuParent.name,
+//       k_s: skuParent.keyStr,
+//       k_id: skuParent.id,
+//       v: [],
+//       largeImageMode: skuParent.largeImageMode,
+//       inputVisible: false,
+//       inputValue: '',
+//     }
+//     skuDataItems.push(skuDataItem)
+//   }
+//   return skuDataItems
+// }

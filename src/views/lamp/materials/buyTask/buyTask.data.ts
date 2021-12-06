@@ -6,44 +6,49 @@ import { FormSchemaExt } from '/@/api/lamp/common/formValidateService';
 const { t } = useI18n();
 // 列表页字段
 export const columns: BasicColumn[] = [
+  // {
+  //   title: t('lamp.materials.buyTask.materialsId'),
+  //   dataIndex: 'materialsId',
+  //   // width: 180,
+  // },
+  // {
+  //   title: t('lamp.materials.buyTask.skuId'),
+  //   dataIndex: 'skuId',
+  //   // width: 180,
+  // },
   {
-    title: t('lamp.materials.buyTask.materialsId'),
-    dataIndex: 'materialsId',
-    // width: 180,
+    title: '物料名称-规格',
+    dataIndex: 'materials',
+    width: 380,
   },
   {
-    title: t('lamp.materials.buyTask.skuId'),
-    dataIndex: 'skuId',
-    // width: 180,
-  },
-  {
-    title: t('lamp.materials.buyTask.minRequireTime'),
+    title: '需求日期',
     dataIndex: 'minRequireTime',
     // width: 180,
   },
   {
-    title: t('lamp.materials.buyTask.quantity'),
+    title: '未采购数量',
     dataIndex: 'quantity',
     // width: 180,
   },
   {
-    title: t('lamp.materials.buyTask.todoQuantity'),
+    title: '待交付数量',
     dataIndex: 'todoQuantity',
     // width: 180,
   },
+  // {
+  //   title: t('lamp.materials.buyTask.status'),
+  //   dataIndex: 'status',
+  //   // width: 180,
+  // },
+  // {
+  //   title: t('lamp.materials.buyTask.optionName'),
+  //   dataIndex: 'optionName',
+  //   // width: 180,
+  // },
   {
-    title: t('lamp.materials.buyTask.status'),
-    dataIndex: 'status',
-    // width: 180,
-  },
-  {
-    title: t('lamp.materials.buyTask.optionName'),
-    dataIndex: 'optionName',
-    // width: 180,
-  },
-  {
-    title: t('lamp.common.createTime'),
-    dataIndex: 'createTime',
+    title: '更新时间',
+    dataIndex: 'updateTime',
     sorter: true,
     width: 180,
   },
@@ -55,6 +60,18 @@ export const searchFormSchema: FormSchema[] = [
     label: t('lamp.common.createTime'),
     component: 'RangePicker',
     colProps: { span: 6 },
+  },
+  {
+    field: 'status',
+    label: '状态',
+    component: 'Select',
+    componentProps: {
+      options: [
+        { label: '启用', value: '0' },
+        { label: '停用', value: '1' },
+      ],
+    },
+    colProps: { span: 8 },
   },
 ];
 

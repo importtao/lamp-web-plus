@@ -171,7 +171,6 @@ const transform: AxiosTransform = {
    * @description: 响应错误处理
    */
   responseInterceptorsCatch: (error: any) => {
-    debugger;
     const { t } = useI18n();
     errorStore.setupErrorHandle(error);
     const { response, code, message } = error || {};

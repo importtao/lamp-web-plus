@@ -5,9 +5,14 @@ import { FormSchemaExt } from '/@/api/lamp/common/formValidateService';
 const { t } = useI18n();
 // 列表页字段
 export const columns: BasicColumn[] = [
+  // {
+  //   title: t('lamp.materials.categoryLackApply.materialsId'),
+  //   dataIndex: 'materialsId',
+  //   // width: 180,
+  // },
   {
-    title: t('lamp.materials.categoryLackApply.materialsId'),
-    dataIndex: 'materialsId',
+    title: '物料名称',
+    dataIndex: 'materialsName',
     // width: 180,
   },
   {
@@ -44,6 +49,12 @@ export const columns: BasicColumn[] = [
     title: t('lamp.materials.categoryLackApply.remark'),
     dataIndex: 'remark',
     // width: 180,
+  },
+  {
+    title: '发起人',
+    dataIndex: 'createUser',
+    sorter: true,
+    width: 180,
   },
   {
     title: t('lamp.common.createTime'),

@@ -6,6 +6,11 @@ import { FormSchemaExt } from '/@/api/lamp/common/formValidateService';
 const { t } = useI18n();
 // 列表页字段
 export const columns: BasicColumn[] = [
+  {
+    title: '订单编号',
+    dataIndex: 'id',
+    // width: 180,
+  },
   // {
   //   title: t('lamp.materials.buyOrder.materialsId'),
   //   dataIndex: 'materialsId',
@@ -17,20 +22,15 @@ export const columns: BasicColumn[] = [
   //   // width: 180,
   // },
   {
-    title: '物料名称',
-    dataIndex: 'materialsName',
-    // width: 180,
-  },
-  {
     title: t('lamp.materials.buyOrder.quantity'),
     dataIndex: 'quantity',
     // width: 180,
   },
-  {
-    title: t('lamp.materials.buyOrder.actualQuantity'),
-    dataIndex: 'actualQuantity',
-    // width: 180,
-  },
+  // {
+  //   title: t('lamp.materials.buyOrder.actualQuantity'),
+  //   dataIndex: 'actualQuantity',
+  //   // width: 180,
+  // },
   {
     title: t('lamp.materials.buyOrder.minRequireTime'),
     dataIndex: 'minRequireTime',
@@ -46,11 +46,11 @@ export const columns: BasicColumn[] = [
     dataIndex: 'status',
     // width: 180,
   },
-  {
-    title: t('lamp.materials.buyOrder.orderIndex'),
-    dataIndex: 'orderIndex',
-    // width: 180,
-  },
+  // {
+  //   title: t('lamp.materials.buyOrder.orderIndex'),
+  //   dataIndex: 'orderIndex',
+  //   // width: 180,
+  // },
   {
     title: t('lamp.materials.buyOrder.remark'),
     dataIndex: 'remark',
@@ -67,17 +67,17 @@ export const columns: BasicColumn[] = [
     // width: 180,
   },
   {
-    title: '发起人',
-    dataIndex: 'createUser',
-    sorter: true,
-    width: 180,
-  },
-  {
     title: t('lamp.common.createTime'),
     dataIndex: 'createTime',
     sorter: true,
     width: 180,
   },
+  {
+    title: '发起人',
+    dataIndex: 'createUser',
+    // sorter: true,
+    width: 200,
+  }
 ];
 
 export const searchFormSchema: FormSchema[] = [

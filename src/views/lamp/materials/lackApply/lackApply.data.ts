@@ -51,6 +51,12 @@ export const columns: BasicColumn[] = [
     // width: 180,
   },
   {
+    title: '发起人',
+    dataIndex: 'createUser',
+    sorter: true,
+    width: 180,
+  },
+  {
     title: t('lamp.common.createTime'),
     dataIndex: 'createTime',
     sorter: true,

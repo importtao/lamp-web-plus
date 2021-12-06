@@ -35,6 +35,7 @@
     "@iconify/iconify": "^2.0.0-rc.6",
     "@vueuse/core": "^4.4.1",
     "@zxcvbn-ts/core": "^0.3.0",
+    "ali-oss": "^6.16.0",
     "ant-design-vue": "^3.0.0-alpha.0",
     "apexcharts": "^3.25.0",
     "axios": "^0.21.1",

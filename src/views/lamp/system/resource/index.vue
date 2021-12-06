@@ -55,7 +55,6 @@
       const { t } = useI18n();
       const selectedResourceData = inject('selectedResourceData')
       const currentMenuId = inject('currentMenuId')
-debugger
       const { createMessage, createConfirm } = useMessage();
       // 编辑页弹窗
       const [registerDrawer, { openDrawer }] = useDrawer();
@@ -98,7 +97,6 @@ debugger
 
       // 弹出新增页面
       function handleAdd(currentMenuId) {
-        debugger
         let record = {menuId:currentMenuId}
         console.log(record)
         openDrawer(true, {

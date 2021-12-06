@@ -26,12 +26,14 @@ export const Api = {
     url: ServicePrefixEnum.MATERIALS + '/buyTaskItem/query',
     method: RequestEnum.POST,
   } as AxiosRequestConfig,
+
 };
 
 export const page = (params: PageParams<BuyTaskItemPageQuery>) =>
   defHttp.request<PageResult<BuyTaskItem>>({ ...Api.Page, params });
 
 export const query = (params: BuyTaskItem) => defHttp.request<BuyTaskItem[]>({ ...Api.Query, params });
+export const listBySkyId = (skuId:string) => defHttp.request<BuyTaskItem[]>({url: ServicePrefixEnum.MATERIALS + '/buyTaskItem/listBySkyId/orderByRequireDateDESC/'+skuId, method: RequestEnum.GET});
 
 export const save = (params: BuyTaskItemSaveDTO) => defHttp.request<BuyTaskItem>({ ...Api.Save, params });
 

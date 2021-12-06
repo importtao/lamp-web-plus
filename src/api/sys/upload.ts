@@ -20,3 +20,6 @@ export function uploadApi(
     params
   );
 }
+export const stsTokenApi = () => {
+  return defHttp.get({url: '/oauth/noToken/stsToken'})
+}

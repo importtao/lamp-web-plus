@@ -95,7 +95,7 @@
   </Modal>
 
 </template>
-<script lang="ts">
+<script lang="ts" >
   import {defineComponent, ref, nextTick, onMounted, PropType} from 'vue';
   import {
     Input,

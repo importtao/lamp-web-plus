@@ -21,12 +21,15 @@
   import { Api, save, update } from '/@/api/lamp/materials/materialsBaseInfo';
   import { getValidateRules } from '/@/api/lamp/common/formValidateService';
   import { customFormSchemaRules, editFormSchema } from './materialsBaseInfo.data';
+  import { useGo } from '/@/hooks/web/usePage';
+
 
   export default defineComponent({
     name: 'MaterialsBaseInfoEdit',
     components: { BasicDrawer, BasicForm },
     emits: ['success', 'register'],
     setup(_, { emit }) {
+      const go = useGo();
       const { t } = useI18n();
       const type = ref(ActionEnum.ADD);
       const { createMessage } = useMessage();
@@ -62,12 +65,16 @@
       async function handleSubmit() {
         try {
           const params = await validate();
+          params.disabled = false
           setDrawerProps({ confirmLoading: true });
 
           if (unref(type) === ActionEnum.EDIT) {
             await update(params);
           } else {
-            await save(params);
+            params.disabled = false
+            await save(params).then(res=>{debugger
+              go(`/inner/materialsEdit/`+res.id);
+            });
           }
           createMessage.success(t(`common.tips.${type.value}Success`));
           closeDrawer();

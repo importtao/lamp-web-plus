@@ -24,7 +24,7 @@
 <!--        <RadioGroup v-model:value="record[column.dataIndex]">-->
 <!--          <RadioButton v-for="radioItem in column.options" :value="radioItem.value" :checked="radioItem.checked">{{radioItem.label}}</RadioButton>-->
 <!--        </RadioGroup>-->
-        <Select  v-model:value="record[column.dataIndex]">
+        <Select  v-model:value="record[column.dataIndex]"  style="width: 215px">
           <SelectOption v-for="radioItem in column.options" :value="radioItem.value" :checked="radioItem.checked">{{radioItem.label}}</SelectOption>
         </Select>
       </template>
@@ -32,7 +32,7 @@
         <Input v-model:value="record[column.dataIndex]" :placeholder="column.title" prefix="￥" suffix="元"/>
       </template>
        <template v-else-if="column.type === 'img'">
-         <SkuImage max="1"></SkuImage>
+         <SkuImage max="1" :skuDTO="record" @uploadSuccess="(url)=>{record.imgUrl = url}"></SkuImage>
       </template>
       <template v-else>
           {{ record[column.dataIndex] }}
@@ -53,13 +53,13 @@
 
   const colorList = ['green','cyan','#2db7f5','purple']
   const commonColumns = [
-    // {
-    //   title: '预览图',
-    //   key: 'imgUrl',
-    //   dataIndex: 'imgUrl',
-    //   type:'img',
-    //   width: 80,
-    // },
+    {
+      title: '预览图',
+      key: 'imgUrl',
+      dataIndex: 'imgUrl',
+      type:'img',
+      width: 80,
+    },
     {
       title: '单位',
       key: 'unit',
@@ -78,12 +78,13 @@
       title: '审批类型',
       key: 'auditType',
       dataIndex: 'auditType',
-      width: 290,
+      width: 210,
       type: 'radio',
       options:[
         {label:'不审批',value:'不审批',checked:true},
-        {label:'主管审批',value:'主管审批',checked:false},
-        {label:'副总审批',value:'副总审批',checked:false}
+        {label:'1级主管审批(车间主任)',value:'1级主管审批(车间主任)',checked:true},
+        {label:'2级主管审批(生产技术部部长)',value:'2级主管审批(生产技术部部长)',checked:false},
+        {label:'3级主管审批(管理副总)',value:'3级主管审批(管理副总)',checked:false}
       ]
     },
     {
@@ -189,7 +190,8 @@
         data,
         getData,
         columns,
-        colorList
+        colorList,
+        syncSkuProperty
       };
     },
   });

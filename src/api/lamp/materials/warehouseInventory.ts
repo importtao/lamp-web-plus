@@ -18,6 +18,10 @@ export const Api = {
     url: ServicePrefixEnum.MATERIALS + '/warehouseInventory',
     method: RequestEnum.PUT,
   },
+  changeQuantity: {
+    url: ServicePrefixEnum.MATERIALS + '/warehouseInventory/changeQuantity',
+    method: RequestEnum.POST,
+  },
   Delete: {
     url: ServicePrefixEnum.MATERIALS + '/warehouseInventory',
     method: RequestEnum.DELETE,
@@ -26,6 +30,7 @@ export const Api = {
     url: ServicePrefixEnum.MATERIALS + '/warehouseInventory/query',
     method: RequestEnum.POST,
   } as AxiosRequestConfig,
+
 };
 
 export const page = (params: PageParams<WarehouseInventoryPageQuery>) =>
@@ -33,9 +38,12 @@ export const page = (params: PageParams<WarehouseInventoryPageQuery>) =>
 
 export const query = (params: WarehouseInventory) => defHttp.request<WarehouseInventory[]>({ ...Api.Query, params });
 
+export const listBySkuId = (skuId: string) => defHttp.request<any[]>({url:ServicePrefixEnum.MATERIALS + '/warehouseInventory/listBySkuId/'+skuId,method:  RequestEnum.GET});
+
 export const save = (params: WarehouseInventorySaveDTO) => defHttp.request<WarehouseInventory>({ ...Api.Save, params });
 
-export const update = (params: WarehouseInventoryUpdateDTO) =>
-  defHttp.request<WarehouseInventory>({ ...Api.Update, params });
+export const update = (params: WarehouseInventoryUpdateDTO) => defHttp.request<WarehouseInventory>({ ...Api.Update, params });
+
+export const changeQuantity = (params: WarehouseInventoryUpdateDTO) => defHttp.request<WarehouseInventory>({ ...Api.changeQuantity, params });
 
 export const remove = (params: string[]) => defHttp.request<boolean>({ ...Api.Delete, params });

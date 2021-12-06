@@ -71,7 +71,7 @@
       function handleScroll(){
         emit('handleScroll', null);
       }
-      async function fetch() {debugger
+      async function fetch() {
         const api = props.api;
         if (!api || !isFunction(api)) return;
 

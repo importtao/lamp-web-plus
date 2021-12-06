@@ -26,13 +26,17 @@ export const Api = {
     url: ServicePrefixEnum.MATERIALS + '/warehouse/query',
     method: RequestEnum.POST,
   } as AxiosRequestConfig,
+  simpleList: {
+    url: ServicePrefixEnum.MATERIALS + '/warehouse/simpleList',
+    method: RequestEnum.GET,
+  } as AxiosRequestConfig,
 };
 
 export const page = (params: PageParams<WarehousePageQuery>) =>
   defHttp.request<PageResult<Warehouse>>({ ...Api.Page, params });
 
 export const query = (params: Warehouse) => defHttp.request<Warehouse[]>({ ...Api.Query, params });
-
+export const simpleList = () => defHttp.request<Warehouse[]>({ ...Api.simpleList });
 export const save = (params: WarehouseSaveDTO) => defHttp.request<Warehouse>({ ...Api.Save, params });
 
 export const update = (params: WarehouseUpdateDTO) =>

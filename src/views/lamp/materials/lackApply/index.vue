@@ -1,33 +1,49 @@
 <template>
   <PageWrapper dense contentFullHeight fixedHeight>
     <BasicTable @register="registerTable">
-      <template #toolbar>
-        <a-button type="primary" @click="handleBatchDelete">{{
-          t('common.title.delete')
-        }}</a-button>
-        <a-button type="primary" @click="handleAdd">{{ t('common.title.add') }}</a-button>
-      </template>
+<!--      <template #toolbar>-->
+<!--        <a-button type="primary" @click="handleBatchDelete">{{-->
+<!--          t('common.title.delete')-->
+<!--        }}</a-button>-->
+<!--        <a-button type="primary" @click="handleAdd">{{ t('common.title.add') }}</a-button>-->
+<!--      </template>-->
       <template #action="{ record }">
         <TableAction
           :actions="[
             {
-              label: t('common.title.edit'),
+              label: '通过',
               onClick: handleEdit.bind(null, record),
+              color: 'success'
             },
             {
-              label: t('common.title.copy'),
-              onClick: handleCopy.bind(null, record),
-            },
-            {
-              label: t('common.title.delete'),
+              label: '拒绝',
               color: 'error',
               popConfirm: {
-                title: t('common.tips.confirmDelete'),
+                title: '确认拒绝？',
                 confirm: handleDelete.bind(null, record),
               },
             },
           ]"
         />
+      </template>
+      <template #bodyCell="{ column, record, index }">
+        <template v-if="column.dataIndex === 'status'">
+          <Badge :status="'创建成功' == record.status?'processing':'拒绝' == record.status?'error': 'success'" :text="record.status" />
+        </template>
+        <template v-if="column.dataIndex === 'emergencyLevel'">
+          <Badge :status="'加急' == record.emergencyLevel?'error':'一周内' == record.emergencyLevel?'warning': 'processing'" :text="record.emergencyLevel" />
+        </template>
+        <template v-if="column.dataIndex === 'requireType'">
+          <Badge :status="'长期需求' == record.requireType?'error': 'processing'" :text="record.requireType" />
+        </template>
+        <template v-if="column.dataIndex === 'createUser'">
+          <span>{{record.createUserName}}-{{record.createUserPhone}}</span>
+        </template>
+        <template v-if="column.dataIndex === 'imgUrl'">
+          <ImagePreviewGroup>
+          <Image :width="30" v-if="record.imgUrl" v-for="url in record.imgUrl.split(',')" :src="url" />
+          </ImagePreviewGroup>
+        </template>
       </template>
     </BasicTable>
     <EditModal @register="registerDrawer" @success="handleSuccess" />
@@ -45,10 +61,12 @@
   import { page, remove } from '/@/api/lamp/materials/lackApply';
   import { columns, searchFormSchema } from './lackApply.data';
   import EditModal from './Edit.vue';
+  import {Image,ImagePreviewGroup} from 'ant-design-vue';
+  import {Badge} from 'ant-design-vue';
 
   export default defineComponent({
     name: 'LackApplyManagement',
-    components: { BasicTable, PageWrapper, EditModal, TableAction },
+    components: { BasicTable, PageWrapper, EditModal, TableAction ,Image,ImagePreviewGroup,Badge},
     setup() {
       const { t } = useI18n();
       const { createMessage, createConfirm } = useMessage();

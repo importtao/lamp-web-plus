@@ -13,38 +13,73 @@
           layout="vertical"
           title="规格信息"
           :bordered="true"
-          :column="8"
+          :column="9"
           :data="sku"
           :schema="skuSchema"
         />
         <a-divider />
 
     <BasicTable @register="registerRefundTable">
-      <template #toolbar>
-        <Button type="primary" @click="updateQuantity">
-          手动变更库存
-        </Button>
-      </template>
+<!--      <template #toolbar>-->
+<!--        <Button type="primary" @click="updateQuantity">-->
+<!--          手动变更库存-->
+<!--        </Button>-->
+<!--      </template>-->
       <template #bodyCell="{ column, record, index }">
-        <template v-if="column.type === 'sku'">
-          <Tag :color="colorList[column.index/colorList.length]">
-            {{ record.pathObject[column.dataIndex] && skuItemIdMap.get(record.pathObject[column.dataIndex]).name}}
-          </Tag>
-        </template>
-        <template v-if="column.dataIndex === 'auditType'">
-          <Badge :status="record.auditType == '不审批'?'success':record.auditType == '主管审批'?'warning':'error'" :text="record.auditType" />
-        </template>
+<!--        <template v-if="column.dataIndex === 'quantity' || column.dataIndex === 'safeQuantity'">-->
+<!--          <InputNumber v-model:value="record[column.dataIndex]" :min="0"  :step="1.000"/>-->
+<!--&lt;!&ndash;          <Tag :color="colorList[column.index/colorList.length]">&ndash;&gt;-->
+<!--&lt;!&ndash;            {{ record.pathObject[column.dataIndex] && skuItemIdMap.get(record.pathObject[column.dataIndex]).name}}&ndash;&gt;-->
+<!--&lt;!&ndash;          </Tag>&ndash;&gt;-->
+<!--        </template>-->
         <template v-if="column.key === 'option'">
-          <Button type="primary" :size="size" danger> <template #icon><DeleteOutlined /></template>库存明细</Button>
+          <Button   danger @click="changeQuantity(record)"> <template #icon><SettingOutlined /></template>变更库存</Button>
         </template>
       </template>
     </BasicTable>
     <a-divider>库存变更记录</a-divider>
 
     <!--    <BasicTable @register="registerTimeTable"/>-->
+    <Empty v-if="!recordList || recordList.length < 1"></Empty>
     <div style="margin: auto;padding: 30px;">
-      <warehouseInventory :skuId="params.id"/>
+      <Timeline   mode="alternate" :reverse="reverse">
+        <TimelineItem :color="!recordItem.isInFlag?'red':'green'" v-for="recordItem in recordList" :position="!recordItem.isInFlag?'left':'right'">
+          <!--      <clock-circle-outlined style="font-size: 16px" />-->
+          <template #dot v-if="!recordItem.isInFlag"><RightCircleFilled two-tone-color="#52c41a" style="font-size: 24px"/></template>
+          <template #dot v-else><LeftCircleFilled two-tone-color="#eb2f96" style="font-size: 24px"/></template>
+          <Card size="small" :title="recordItem.createTime" >
+            <!--        <template #extra><a href="#">more</a></template>-->
+            <Descriptions  :column="3" bordered layout="vertical">
+              <DescriptionsItem label="数量">{{recordItem.quantity}}</DescriptionsItem>
+              <DescriptionsItem label="仓库">{{warehouseMap.get(recordItem.warehouseId)}}</DescriptionsItem>
+              <DescriptionsItem label="操作名称">{{recordItem.optionName}}</DescriptionsItem>
+            </Descriptions>
+          </Card>
+        </TimelineItem>
+      </Timeline>
     </div>
+
+    <Modal v-model:visible="visible" title="变更库存" @ok="commitChangeQuantity">
+      <spin :spinning="spinning">
+      <div style="padding: 30px;width: 100%;">
+        <Form :model="currentWarehouseInventory" :label-col=" { span: 4 }" :wrapper-col=" { span: 14 }" :rules="rules" ref="formRef">
+          <FormItem label="库房" name="warehouseName">
+            <Input v-model:value="currentWarehouseInventory.warehouseName" disabled  />
+          </FormItem>
+          <FormItem label="库存数" name="quantity">
+            <InputNumber v-model:value="currentWarehouseInventory.quantity"  :min="0"  :step="1.000"/>
+          </FormItem>
+          <FormItem label="安全库存" name="safeQuantity">
+            <InputNumber v-model:value="currentWarehouseInventory.safeQuantity" :min="0"  :step="1.000"/>
+          </FormItem>
+          <FormItem label="修改说明" name="remark">
+            <Input v-model:value="currentWarehouseInventory.remark"   />
+          </FormItem>
+        </Form>
+      </div>
+      </spin>
+    </Modal>
+
   </PageWrapper>
 </template>
 <script lang="ts">
@@ -53,7 +88,12 @@
   import {BasicColumn, BasicTable, useTable} from '/@/components/Table';
   import {PageWrapper} from '/@/components/Page';
   import {bySkuId} from '/@/api/lamp/materials/sku';
-  import {Badge, Divider,Tag,Button} from 'ant-design-vue';
+  import {simpleList} from '/@/api/lamp/materials/warehouse';
+  import {listBySkuId,changeQuantity as changeQuantityApi} from '/@/api/lamp/materials/warehouseInventory';
+  import {listBySkuId as recordListBySkuId} from '/@/api/lamp/materials/warehouseInventoryRecord';
+  import {Badge, Divider,Tag,Button,InputNumber,Modal,Form,FormItem,Input,Timeline,TimelineItem,Card,Descriptions,DescriptionsItem,Empty,Spin} from 'ant-design-vue';
+  import {SettingOutlined,LeftCircleFilled,RightCircleFilled} from '@ant-design/icons-vue';
+
 
   import {
     skuCommonColumns,
@@ -61,10 +101,9 @@
     refundTimeTableData,
   } from './data';
   import {useRouter} from "vue-router";
-  import {Sku, SkuDTO} from "/@/api/lamp/materials/model/skuModel";
+  import {Sku, } from "/@/api/lamp/materials/model/skuModel";
 
   import {MaterialsBaseInfo} from "/@/api/lamp/materials/model/materialsBaseInfoModel";
-  import warehouseInventory from './quantityRecord.vue';
   import {WarehouseInventory} from "/@/api/lamp/materials/model/warehouseInventoryModel";
 
   const materialsBaseInfoSchema: DescItem[] = [
@@ -89,7 +128,7 @@
   const columns: BasicColumn[] = [
     {
       title: '库房',
-      dataIndex: 'warehouseId',
+      dataIndex: 'warehouseName',
       // width: 180,
     },
 
@@ -99,14 +138,20 @@
       // width: 180,
     },
     {
-      title: '最终库存变更时间',
-      dataIndex: 'updateTime',
+      title: '安全库存',
+      dataIndex: 'safeQuantity',
+      // width: 180,
+    },
+    {
+      title: '操作',
+      dataIndex: 'option',
       // width: 180,
     },
   ];
 
   export default defineComponent({
-    components: {Description, BasicTable, PageWrapper, [Divider.name]: Divider,Tag,Badge,Button,warehouseInventory},
+    name:'skuDetails',
+    components: {Description, BasicTable, PageWrapper, [Divider.name]: Divider,Tag,Badge,Button,InputNumber,Modal,SettingOutlined,Form,FormItem,Input,Timeline,TimelineItem,Card,RightCircleFilled,LeftCircleFilled,Descriptions,DescriptionsItem,Empty,Spin},
     setup() {
       const {currentRoute} = useRouter();
       const params = computed(() => {
@@ -116,6 +161,13 @@
       const warehouseInventoryList = ref<WarehouseInventory[]>();
       const sku = ref<Sku>();
       const skuName = ref();
+      const recordList = ref<any[]>();
+      const visible = ref(false);
+      const spinning = ref<boolean>(false);
+      const reverse = ref<boolean>(false);
+      const currentWarehouseInventory = ref<any>();
+      const formRef = ref();
+
       const skuSchema = [
         {
           label: '规格值',
@@ -124,6 +176,10 @@
         {
           label: '单位',
           field: 'unit'
+        },
+        {
+          label: '库存总数',
+          field: 'totalQuantity'
         },
         {
           label: '物料编码',
@@ -152,21 +208,10 @@
       ]
       const warehouseMap = ref<Map<string, string>>(new Map<string, string>());
       onMounted(() => {
-        bySkuId(params.value.id).then(res => {
-          warehouseMap.value = new Map(Object.entries(res.warehouseMap))
-
-          warehouseInventoryList.value = res.warehouseInventoryList
-          skuName.value = res.skuName
-          sku.value = res.sku
-          materialsBaseInfo.value = res.materialsBaseInfo
-          new Map(Object.entries(skuName.value)).forEach((v,k)=>{
-            if(sku.value.skuSchema){
-              sku.value.skuSchema += ' '+v
-            }else{
-              sku.value.skuSchema = v
-            }
-          })
+        simpleList().then(res=>{
+          return res.forEach(item=>warehouseMap.value.set(item.id, item.name));
         })
+        getInfo()
       })
       // const columns = computed(()=>{
       //   let skuColumns = []
@@ -223,7 +268,66 @@
           },
         ];
       }
+
+      const rules = {
+        quantity: [{ required: true, message: '库存数不能为空' }],
+        safeQuantity: [{ required: true, message: '安全库存数不能为空' }],
+        remark: [{ required: true, message: '备注不能为空' }]
+      };
+      function changeQuantity(record) {
+        currentWarehouseInventory.value = record
+        visible.value = true
+      }
+
+      function commitChangeQuantity() {
+        formRef.value
+          .validate()
+          .then(() => {
+            spinning.value = true
+            let param = {
+              id:currentWarehouseInventory.value.id,
+              quantity:currentWarehouseInventory.value.quantity,
+              safeQuantity:currentWarehouseInventory.value.safeQuantity,
+              remark:currentWarehouseInventory.value.remark,
+            }
+
+            changeQuantityApi(param).then(res=>{
+              spinning.value = false
+              visible.value = false
+              getInfo()
+
+            }).finally(()=>{
+              spinning.value = false
+            })
+          })
+          .catch(error => {
+            console.log('error', error);
+          });
+      }
       
+      function getInfo() {
+        bySkuId(params.value.id).then(res => {
+          // warehouseMap.value = new Map(Object.entries(res.warehouseMap))
+
+          // warehouseInventoryList.value = res.warehouseInventoryList
+          skuName.value = res.skuName
+          sku.value = res.sku
+          materialsBaseInfo.value = res.materialsBaseInfo
+          new Map(Object.entries(skuName.value)).forEach((v,k)=>{
+            if(sku.value.skuSchema){
+              sku.value.skuSchema += ' '+v
+            }else{
+              sku.value.skuSchema = v
+            }
+          })
+        })
+        listBySkuId(params.value.id).then(res => {
+          warehouseInventoryList.value = res
+        })
+        recordListBySkuId(params.value.id).then(res => {
+          recordList.value = res
+        })
+      }
       function updateQuantity() {
 
       }
@@ -241,7 +345,8 @@
         skuCommonColumns,
         colorList,
         skuSchema,
-        columns
+        columns,
+        visible,currentWarehouseInventory,changeQuantity,rules,formRef,commitChangeQuantity,getInfo,recordList,spinning,reverse
       };
     },
   });

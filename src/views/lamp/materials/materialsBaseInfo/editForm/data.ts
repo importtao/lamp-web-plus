@@ -69,31 +69,31 @@ export const schemas: FormSchema[] = [
     component: 'Input',
     colProps:{span:6,offset: 1,},
   },
-  {
-    label: t('lamp.materials.materialsBaseInfo.imgUrl'),
-    field: 'imgUrl',
-    component: 'UploadImg',
-    colProps:{span:11,offset: 1,},
-  },
+  // {
+  //   label: t('lamp.materials.materialsBaseInfo.imgUrl'),
+  //   field: 'imgUrl',
+  //   component: 'UploadImg',
+  //   colProps:{span:11,offset: 1,},
+  // },
 
-  {
-    label: t('lamp.materials.materialsBaseInfo.version'),
-    field: 'version',
-    component: 'Input',
-    show: false,
-  },
-  {
-    label: t('lamp.materials.materialsBaseInfo.isDelete'),
-    field: 'isDelete',
-    component: 'RadioButtonGroup',
-    show: false,
-    componentProps: {
-      options: [
-        { label: t('lamp.common.yes'), value: true },
-        { label: t('lamp.common.no'), value: false },
-      ],
-    },
-  },
+  // {
+  //   label: t('lamp.materials.materialsBaseInfo.version'),
+  //   field: 'version',
+  //   component: 'Input',
+  //   show: false,
+  // },
+  // {
+  //   label: t('lamp.materials.materialsBaseInfo.isDelete'),
+  //   field: 'isDelete',
+  //   component: 'RadioButtonGroup',
+  //   show: false,
+  //   componentProps: {
+  //     options: [
+  //       { label: t('lamp.common.yes'), value: true },
+  //       { label: t('lamp.common.no'), value: false },
+  //     ],
+  //   },
+  // },
 ];
 export const taskSchemas: FormSchema[] = [
   {

@@ -50,6 +50,8 @@ import { isDevMode } from '/@/utils/env';
   // Mount when the route is ready
   await router.isReady();
 
+
+
   app.mount('#app', true);
 
   // The development environment takes effect
