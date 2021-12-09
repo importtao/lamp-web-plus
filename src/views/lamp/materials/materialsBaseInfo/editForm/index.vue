@@ -16,7 +16,7 @@
         <Button type="primary" size="large" :loading="baseInfoLoading" @click="saveBaseInfo">保存
         </Button>
       </template>
-      <MaterialsImage max="8" :materialsBaseInfo="materialsBaseInfo" @uploadSuccess="(url)=>{materialsBaseInfo.imgUrl = url}"></MaterialsImage>
+      <MaterialsImage :max="8" :materialsBaseInfo="materialsBaseInfo" @uploadSuccess="(url)=>{materialsBaseInfo.imgUrl = url}"></MaterialsImage>
     </a-card>
     <a-card title="物料规格SKU管理" :bordered="false" class="!mt-5">
       <!--      <BasicForm @register="registerTask" />-->
@@ -111,6 +111,7 @@
             message.error('sku不能为空！');
             return
           }
+          debugger
           materialsBaseInfo.value = materialsBaseInfoList[0]
           setFieldsValue(materialsBaseInfo.value)
         })

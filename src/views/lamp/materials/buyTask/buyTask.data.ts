@@ -61,18 +61,18 @@ export const searchFormSchema: FormSchema[] = [
     component: 'RangePicker',
     colProps: { span: 6 },
   },
-  {
-    field: 'status',
-    label: '状态',
-    component: 'Select',
-    componentProps: {
-      options: [
-        { label: '启用', value: '0' },
-        { label: '停用', value: '1' },
-      ],
-    },
-    colProps: { span: 8 },
-  },
+  // {
+  //   field: 'status',
+  //   label: '状态',
+  //   component: 'Select',
+  //   componentProps: {
+  //     options: [
+  //       { label: '启用', value: '0' },
+  //       { label: '停用', value: '1' },
+  //     ],
+  //   },
+  //   colProps: { span: 8 },
+  // },
 ];
 
 // 编辑页字段

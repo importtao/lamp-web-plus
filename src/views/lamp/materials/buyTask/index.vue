@@ -29,10 +29,14 @@
             {
               label: '查看订单',
               onClick: toTaskOrderDetails.bind(null,record),
-              color: 'warning',
             },{
               label: '查看任务明细',
               onClick: toTaskItemDetails.bind(null,record),
+              color: 'error',
+            },
+            {
+              label: '查看物料',
+              onClick: toMaterialsDetails.bind(null,record),
               color: 'error',
             },
           ]"
@@ -87,7 +91,7 @@
           type: 'checkbox',
         },
         actionColumn: {
-          width: 240,
+          width: 340,
           title: '操作',
           dataIndex: 'action',
           slots: {customRender: 'action'},
@@ -145,6 +149,10 @@
         go(`/inner/buyTaskOrderList/`+record.skuId);
 
       }
+      function toMaterialsDetails(record) {
+        go(`/inner/skuDetails/`+record.skuId);
+
+      }
       // 点击批量删除
       function handleBatchDelete() {
         const ids = getSelectRowKeys();
@@ -168,6 +176,7 @@
         registerDrawer,
         toTaskItemDetails,
         toTaskOrderDetails,
+        toMaterialsDetails,
         handleAdd,
         handleCopy,
         handleEdit,

@@ -85,16 +85,16 @@ export const editFormSchema: FormSchema[] = [
     field: 'useScene',
     component: 'Input',
   },
-  {
-    label: t('lamp.materials.materialsBaseInfo.imgUrl'),
-    field: 'imgUrl',
-    component: 'Input',
-  },
-  {
-    label: '领用次数',
-    field: 'claimQuantity',
-    component: 'Input',
-  },
+  // {
+  //   label: t('lamp.materials.materialsBaseInfo.imgUrl'),
+  //   field: 'imgUrl',
+  //   component: 'Input',
+  // },
+  // {
+  //   label: '领用次数',
+  //   field: 'claimQuantity',
+  //   component: 'Input',
+  // },
   {
     label: '搜索关键词',
     field: 'keyword',

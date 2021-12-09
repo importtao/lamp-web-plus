@@ -10,13 +10,9 @@
       <template #action="{ record }">
         <TableAction
           :actions="[
+
             {
-              label: '通过',
-              onClick: handleEdit.bind(null, record),
-              color: 'success'
-            },
-            {
-              label: '拒绝',
+              label: '查看详情',
               color: 'error',
               popConfirm: {
                 title: '确认拒绝？',

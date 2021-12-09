@@ -32,7 +32,7 @@
         <Input v-model:value="record[column.dataIndex]" :placeholder="column.title" prefix="￥" suffix="元"/>
       </template>
        <template v-else-if="column.type === 'img'">
-         <SkuImage max="1" :skuDTO="record" @uploadSuccess="(url)=>{record.imgUrl = url}"></SkuImage>
+         <SkuImage :max="1" :skuDTO="record" @uploadSuccess="(url)=>{record.imgUrl = url}"></SkuImage>
       </template>
       <template v-else>
           {{ record[column.dataIndex] }}

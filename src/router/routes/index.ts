@@ -151,7 +151,37 @@ export const ConstRouter: AppRouteRecordRaw[] = [
         meta: {
           title: '采购任务订单',
           icon: 'bx:bx-home',
-          carryParam: true,
+          carryParam: true
+        },
+      },
+      {
+        path: 'buyOrderDetail/:id',
+        name: 'buyOrderDetail',
+        component: () => import('/@/views/lamp/materials/buyOrder/detail.vue'),
+        meta: {
+          title: '采购订单详情',
+          icon: 'bx:bx-home',
+          carryParam: true
+        }
+      },
+      {
+        path: 'lackApplyDetail/:id',
+        name: 'lackApplyDetail',
+        component: () => import('/@/views/lamp/materials/lackApply/detail.vue'),
+        meta: {
+          title: '新物料详情',
+          icon: 'bx:bx-home',
+          carryParam: true
+        }
+      },
+      {
+        path: 'categoryLackApplyDetail/:id',
+        name: 'categoryLackApplyDetail',
+        component: () => import('/@/views/lamp/materials/categoryLackApply/detail.vue'),
+        meta: {
+          title: '物资缺型申报详情',
+          icon: 'bx:bx-home',
+          carryParam: true
         },
       }
     ],

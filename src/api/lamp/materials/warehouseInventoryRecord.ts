@@ -33,6 +33,7 @@ export const page = (params: PageParams<WarehouseInventoryRecordPageQuery>) =>
 
 export const query = (params: WarehouseInventoryRecord) => defHttp.request<WarehouseInventoryRecord[]>({ ...Api.Query, params });
 export const listBySkuId = (skuId: string) => defHttp.request<any[]>({url:ServicePrefixEnum.MATERIALS + '/warehouseInventoryRecord/listBySkuId/'+skuId,method:  RequestEnum.GET});
+export const listByOrderId = (orderId: string) => defHttp.request<any[]>({url:ServicePrefixEnum.MATERIALS + '/warehouseInventoryRecord/listByOrderId/'+orderId,method:  RequestEnum.GET});
 
 
 export const save = (params: WarehouseInventoryRecordSaveDTO) => defHttp.request<WarehouseInventoryRecord>({ ...Api.Save, params });

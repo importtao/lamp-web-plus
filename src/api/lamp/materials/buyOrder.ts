@@ -35,6 +35,11 @@ export const page = (params: PageParams<BuyOrderPageQuery>) =>
 export const query = (params: BuyOrder) => defHttp.request<BuyOrder[]>({ ...Api.Query, params });
 export const listBySkuId = (skuId:string) => defHttp.request<BuyOrder[]>({ url: ServicePrefixEnum.MATERIALS + '/buyOrder/listBySkuId/'+skuId, method: RequestEnum.GET});
 
+export const detail = (orderId:string) => defHttp.request({url: ServicePrefixEnum.MATERIALS + '/buyOrder/detail/'+orderId, method: RequestEnum.GET});
+
+
+export const contractAck = (params: any) => defHttp.request({ url: ServicePrefixEnum.MATERIALS + '/buyOrder/contractAck', method: RequestEnum.POST, params });
+export const arrivalAck = (params: any) => defHttp.request({ url: ServicePrefixEnum.MATERIALS + '/buyOrder/arrivalAck', method: RequestEnum.POST, params });
 export const save = (params: BuyOrderSaveDTO) => defHttp.request<BuyOrder>({ ...Api.Save, params });
 export const customCreateBuyOrder = (params: BuyOrderSaveDTO) => defHttp.request<BuyOrder>({ url: ServicePrefixEnum.MATERIALS + '/buyOrder/customCreateBuyOrder', method: RequestEnum.POST, params });
 export const create = (skuId:string) => defHttp.request<BuyOrder>({ url: ServicePrefixEnum.MATERIALS + '/buyOrder/create/'+skuId, method: RequestEnum.POST});

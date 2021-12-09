@@ -146,7 +146,6 @@
       const warehouseMap = ref<Map<string, string>>(new Map<string, string>());
       onMounted(() => {
         simpleList().then(res => {
-          debugger
           return res.forEach(item => warehouseMap.value.set(item.id, item.name));
         })
         getInfo()

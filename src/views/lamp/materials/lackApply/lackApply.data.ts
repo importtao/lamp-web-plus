@@ -15,16 +15,16 @@ export const columns: BasicColumn[] = [
     dataIndex: 'sku',
     // width: 180,
   },
-  {
-    title: t('lamp.materials.lackApply.unit'),
-    dataIndex: 'unit',
-    // width: 180,
-  },
-  {
-    title: t('lamp.materials.lackApply.useScene'),
-    dataIndex: 'useScene',
-    // width: 180,
-  },
+  // {
+  //   title: t('lamp.materials.lackApply.unit'),
+  //   dataIndex: 'unit',
+  //   // width: 180,
+  // },
+  // {
+  //   title: t('lamp.materials.lackApply.useScene'),
+  //   dataIndex: 'useScene',
+  //   // width: 180,
+  // },
   {
     title: t('lamp.materials.lackApply.requireType'),
     dataIndex: 'requireType',
@@ -40,21 +40,20 @@ export const columns: BasicColumn[] = [
     dataIndex: 'status',
     // width: 180,
   },
-  {
-    title: t('lamp.materials.lackApply.imgUrl'),
-    dataIndex: 'imgUrl',
-    // width: 180,
-  },
-  {
-    title: t('lamp.materials.lackApply.remark'),
-    dataIndex: 'remark',
-    // width: 180,
-  },
+  // {
+  //   title: t('lamp.materials.lackApply.imgUrl'),
+  //   dataIndex: 'imgUrl',
+  //   // width: 180,
+  // },
+  // {
+  //   title: t('lamp.materials.lackApply.remark'),
+  //   dataIndex: 'remark',
+  //   // width: 180,
+  // },
   {
     title: '发起人',
     dataIndex: 'createUser',
-    sorter: true,
-    width: 180,
+    width: 250,
   },
   {
     title: t('lamp.common.createTime'),

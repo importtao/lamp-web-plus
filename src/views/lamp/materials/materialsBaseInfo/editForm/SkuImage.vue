@@ -96,6 +96,9 @@
         uploadToAliyunOss(fileName, file).then((res: any) => {
           console.log('res', res.res)
           let url = res.res.requestUrls[0]
+          if(url.indexOf('uploadId=') > 0){
+            url = url.split('?uploadId=')[0]
+          }
           url = url.split('?uploadId=')[0]
           console.log(url)
           fileList.value = [{

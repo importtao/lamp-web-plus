@@ -72,7 +72,7 @@
             await update(params);
           } else {
             params.disabled = false
-            await save(params).then(res=>{debugger
+            await save(params).then(res=>{
               go(`/inner/materialsEdit/`+res.id);
             });
           }

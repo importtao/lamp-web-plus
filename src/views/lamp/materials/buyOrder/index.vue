@@ -11,14 +11,18 @@
         <TableAction
           :actions="[
             {
-              label: t('common.title.edit'),
-              onClick: handleEdit.bind(null, record),
+              color: 'error',
+              label: '查看详情',
+              onClick: handleToDetail.bind(null, record),
             }
 
           ]"
         />
       </template>
       <template #bodyCell="{ column, record, index }">
+        <template v-if="column.dataIndex === 'materials'">
+          <span>{{record.materialsName}}-{{record.skuName}}</span>
+        </template>
         <template v-if="column.dataIndex === 'status'">
           <Badge :status="'创建成功' == record.status?'processing':'拒绝' == record.status?'error': 'success'" :text="record.status" />
         </template>
@@ -43,11 +47,14 @@
   import { columns, searchFormSchema } from './buyOrder.data';
   import EditModal from './Edit.vue';
   import {Badge} from 'ant-design-vue';
+  import {useGo} from "/@/hooks/web/usePage";
 
   export default defineComponent({
     name: 'BuyOrderManagement',
     components: { BasicTable, PageWrapper, EditModal, TableAction ,Badge},
     setup() {
+      const go = useGo();
+
       const { t } = useI18n();
       const { createMessage, createConfirm } = useMessage();
       // 编辑页弹窗
@@ -86,7 +93,10 @@
           type: ActionEnum.COPY,
         });
       }
+      function handleToDetail(record) {
+        go(`/inner/buyOrderDetail/`+record.id);
 
+      }
       // 弹出新增页面
       function handleAdd() {
         openDrawer(true, {
@@ -102,6 +112,17 @@
           type: ActionEnum.EDIT,
         });
       }
+
+      // 弹出修改
+      function handleArrival(record: Recordable, e) {
+        e.stopPropagation();
+        openDrawer(true, {
+          record,
+          type: ActionEnum.EDIT,
+        });
+      }
+
+
 
       // 新增或编辑成功回调
       function handleSuccess() {
@@ -148,6 +169,8 @@
         handleDelete,
         handleSuccess,
         handleBatchDelete,
+        handleArrival,
+        handleToDetail
       };
     },
   });

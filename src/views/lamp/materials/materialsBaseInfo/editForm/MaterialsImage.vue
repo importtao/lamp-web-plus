@@ -62,10 +62,9 @@
     setup(props,{ emit }) {
       const previewVisible = ref<boolean>(false);
       const previewImage = ref<string | undefined>('');
-
       const fileList = ref<FileItem[]>([]);
       watch(props, (nweProps, oldProps) => {
-        if(props.materialsBaseInfo){
+        if(props.materialsBaseInfo && props.materialsBaseInfo.imgUrl){
           let uid = 0
           fileList.value = props.materialsBaseInfo.imgUrl.trim().split(',').map(url=>{
             uid --
@@ -102,10 +101,12 @@
         let name = file.name
         let pos = name.lastIndexOf('.');
         let type = name.substr(pos);
-        let fileName = `${Date.parse(new Date())}` + parseInt(Math.random() * 10000) + type
+        let fileName = `${Date.parse(new Date())}` + parseInt(Math.random() * 10000) + type;
         uploadToAliyunOss(fileName, file).then((res: any) => {
           let url = res.res.requestUrls[0]
-          url = url.split('?uploadId=')[0]
+          if(url.indexOf('uploadId=') > 0){
+            url = url.split('?uploadId=')[0]
+          }
           fileList.value[fileList.value.length -1] = {
             uid: '-'+fileList.value.length+1,
             name: fileList.value.length+1+'.png',

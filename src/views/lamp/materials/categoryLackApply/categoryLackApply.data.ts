@@ -20,11 +20,11 @@ export const columns: BasicColumn[] = [
     dataIndex: 'name',
     // width: 180,
   },
-  {
-    title: t('lamp.materials.categoryLackApply.useScene'),
-    dataIndex: 'useScene',
-    // width: 180,
-  },
+  // {
+  //   title: t('lamp.materials.categoryLackApply.useScene'),
+  //   dataIndex: 'useScene',
+  //   // width: 180,
+  // },
   {
     title: t('lamp.materials.categoryLackApply.requireType'),
     dataIndex: 'requireType',
@@ -40,21 +40,20 @@ export const columns: BasicColumn[] = [
     dataIndex: 'status',
     // width: 180,
   },
-  {
-    title: t('lamp.materials.categoryLackApply.imgUrl'),
-    dataIndex: 'imgUrl',
-    // width: 180,
-  },
-  {
-    title: t('lamp.materials.categoryLackApply.remark'),
-    dataIndex: 'remark',
-    // width: 180,
-  },
+  // {
+  //   title: t('lamp.materials.categoryLackApply.imgUrl'),
+  //   dataIndex: 'imgUrl',
+  //   // width: 180,
+  // },
+  // {
+  //   title: t('lamp.materials.categoryLackApply.remark'),
+  //   dataIndex: 'remark',
+  //   // width: 180,
+  // },
   {
     title: '发起人',
     dataIndex: 'createUser',
-    sorter: true,
-    width: 180,
+    width: 250,
   },
   {
     title: t('lamp.common.createTime'),

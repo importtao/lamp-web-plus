@@ -17,8 +17,13 @@ export const columns: BasicColumn[] = [
   //   // width: 180,
   // },
   {
-    title: '物料名称',
-    dataIndex: 'materialsName',
+    title: '订单编号',
+    dataIndex: 'id',
+    width: 220,
+  },
+  {
+    title: '物料规格',
+    dataIndex: 'materials',
     // width: 180,
   },
   {
@@ -26,56 +31,56 @@ export const columns: BasicColumn[] = [
     dataIndex: 'quantity',
     // width: 180,
   },
-  {
-    title: t('lamp.materials.buyOrder.actualQuantity'),
-    dataIndex: 'actualQuantity',
-    // width: 180,
-  },
-  {
-    title: t('lamp.materials.buyOrder.minRequireTime'),
-    dataIndex: 'minRequireTime',
-    // width: 180,
-  },
-  {
-    title: t('lamp.materials.buyOrder.expectedArrivalTime'),
-    dataIndex: 'expectedArrivalTime',
-    // width: 180,
-  },
+  // {
+  //   title: t('lamp.materials.buyOrder.actualQuantity'),
+  //   dataIndex: 'actualQuantity',
+  //   // width: 180,
+  // },
+  // {
+  //   title: t('lamp.materials.buyOrder.minRequireTime'),
+  //   dataIndex: 'minRequireTime',
+  //   // width: 180,
+  // },
+  // {
+  //   title: t('lamp.materials.buyOrder.expectedArrivalTime'),
+  //   dataIndex: 'expectedArrivalTime',
+  //   // width: 180,
+  // },
   {
     title: t('lamp.materials.buyOrder.status'),
     dataIndex: 'status',
-    // width: 180,
+    width: 120,
   },
-  {
-    title: t('lamp.materials.buyOrder.orderIndex'),
-    dataIndex: 'orderIndex',
-    // width: 180,
-  },
-  {
-    title: t('lamp.materials.buyOrder.remark'),
-    dataIndex: 'remark',
-    // width: 180,
-  },
-  {
-    title: t('lamp.materials.buyOrder.contractInfo'),
-    dataIndex: 'contractInfo',
-    // width: 180,
-  },
-  {
-    title: t('lamp.materials.buyOrder.supplierInfo'),
-    dataIndex: 'supplierInfo',
-    // width: 180,
-  },
+  // {
+  //   title: t('lamp.materials.buyOrder.orderIndex'),
+  //   dataIndex: 'orderIndex',
+  //   // width: 180,
+  // },
+  // {
+  //   title: t('lamp.materials.buyOrder.remark'),
+  //   dataIndex: 'remark',
+  //   // width: 180,
+  // },
+  // {
+  //   title: t('lamp.materials.buyOrder.contractInfo'),
+  //   dataIndex: 'contractInfo',
+  //   // width: 180,
+  // },
+  // {
+  //   title: t('lamp.materials.buyOrder.supplierInfo'),
+  //   dataIndex: 'supplierInfo',
+  //   // width: 180,
+  // },
   {
     title: '发起人',
     dataIndex: 'createUser',
-    sorter: true,
-    width: 180,
+    sorter: false,
+    width: 250,
   },
   {
     title: t('lamp.common.createTime'),
     dataIndex: 'createTime',
-    sorter: true,
+    sorter: false,
     width: 180,
   },
 ];
@@ -111,6 +116,8 @@ export const editFormSchema: FormSchema[] = [
     label: t('lamp.materials.buyOrder.quantity'),
     field: 'quantity',
     component: 'Input',
+    show: false,
+
   },
   {
     label: t('lamp.materials.buyOrder.actualQuantity'),
@@ -124,7 +131,7 @@ export const editFormSchema: FormSchema[] = [
     componentProps: {
       format: 'YYYY-MM-DD',
       valueFormat: 'YYYY-MM-DD',
-      showTime: { defaultValue: moment('00:00:00', 'HH:mm:ss') },
+      // showTime: { defaultValue: moment('00:00:00', 'HH:mm:ss') },
     },
   },
   {
@@ -134,19 +141,19 @@ export const editFormSchema: FormSchema[] = [
     componentProps: {
       format: 'YYYY-MM-DD',
       valueFormat: 'YYYY-MM-DD',
-      showTime: { defaultValue: moment('00:00:00', 'HH:mm:ss') },
+      // showTime: { defaultValue: moment('00:00:00', 'HH:mm:ss') },
     },
   },
-  {
-    label: t('lamp.materials.buyOrder.status'),
-    field: 'status',
-    component: 'Input',
-  },
-  {
-    label: t('lamp.materials.buyOrder.orderIndex'),
-    field: 'orderIndex',
-    component: 'Input',
-  },
+  // {
+  //   label: t('lamp.materials.buyOrder.status'),
+  //   field: 'status',
+  //   component: 'Input',
+  // },
+  // {
+  //   label: t('lamp.materials.buyOrder.orderIndex'),
+  //   field: 'orderIndex',
+  //   component: 'Input',
+  // },
   {
     label: t('lamp.materials.buyOrder.remark'),
     field: 'remark',
