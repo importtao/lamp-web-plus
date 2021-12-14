@@ -1,0 +1,1 @@
+var i=Object.assign;import{cu as s,be as n}from"./index.b361f078.js";import{S as e}from"./commonEnum.da040d67.js";const m={findEnumLists:{url:e.OAUTH+"/enumList",method:s.POST},findDictList:{url:e.OAUTH+"/dictionary/codeList",method:s.POST}},d=t=>{n.request(i(i({},m.findEnumLists),{params:t}))},o=t=>{n.request(i(i({},m.findDictList),{params:t}))};export{o as a,d as f};
