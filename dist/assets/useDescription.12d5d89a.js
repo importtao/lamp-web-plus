@@ -1,1 +1,0 @@
-import{aK as f,w as o,D as u,cj as i}from"./index.ff8e7350.js";function a(s){if(!f())throw new Error("Please put useDescription function in the setup function!");const t=o(null),r=o(!1);function c(e){u(r)&&i()||(t.value=e,s&&e.setDescProps(s),r.value=!0)}return[c,{setDescProps:e=>{var n;(n=u(t))==null||n.setDescProps(e)}}]}export{a as u};

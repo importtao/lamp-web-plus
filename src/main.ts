@@ -8,6 +8,8 @@ import '@virtual/windi.css';
 // if (import.meta.env.DEV) {
 // }
 import('ant-design-vue/dist/antd.less');
+// import Antd from 'ant-design-vue';
+
 
 import { createApp } from 'vue';
 import App from './App.vue';
@@ -29,6 +31,8 @@ import { isDevMode } from '/@/utils/env';
 
 (async () => {
   const app = createApp(App);
+
+  // app.use(Antd);
   // Register global components
   registerGlobComp(app);
 
