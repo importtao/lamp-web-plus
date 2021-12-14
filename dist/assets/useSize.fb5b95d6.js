@@ -1,0 +1,1 @@
+import{k as i,a0 as o,a3 as u,a4 as s}from"./index.b6dfbfcf.js";var t=Symbol("SizeProvider"),f=function(e){var r=o("configProvider",u),n=i(function(){return e.size||r.componentSize});return s(t,n),n},v=function(e){var r=e?i(function(){return e.size}):o(t,i(function(){return"default"}));return r};export{f as a,v as u};

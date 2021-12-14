@@ -1,0 +1,1 @@
+import{bg as o,d9 as c,aA as u}from"./index.b6dfbfcf.js";function f(s,d=150,n){let e=()=>{s()};const[i,a]=o(e,d,n);e=i;const t=()=>{n&&n.immediate&&e(),window.addEventListener("resize",e)},r=()=>{window.removeEventListener("resize",e),a()};return c(()=>{t()}),u(()=>{r()}),[t,r]}export{f as u};

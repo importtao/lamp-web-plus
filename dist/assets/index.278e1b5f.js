@@ -1,0 +1,1 @@
+import{d as c,bH as p,D as u,o as d,n as i}from"./index.b6dfbfcf.js";import"./vendor.352e3120.js";var s=c({name:"Redirect",setup(){const{currentRoute:r,replace:t}=p(),{params:n,query:o}=u(r),{path:e}=n,a=Array.isArray(e)?e.join("/"):e;return t({path:"/"+a,query:o}),{}}});function f(r,t,n,o,e,a){return d(),i("div")}s.render=f;export default s;

@@ -1,0 +1,1 @@
+import{o as n,n as o}from"./index.b6dfbfcf.js";import"./vendor.352e3120.js";const e={},c={style:{padding:"30px"}};function r(t,d){return n(),o("div",c," \u5F00\u53D1\u4E2D... ")}e.render=r;export default e;

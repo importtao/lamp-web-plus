@@ -1,0 +1,1 @@
+import{y as f,aJ as l,ap as i,k as v,aw as d,aK as m}from"./index.b6dfbfcf.js";function g(n,u="value",c="change"){const a=m(),s=a==null?void 0:a.emit,t=f({value:n[u]}),r=l(t),o=e=>{t.value=e};return i(()=>{t.value=n[u]}),[v({get(){return t.value},set(e){d(e,r.value)||(t.value=e,s==null||s(c,e))}}),o,r]}export{g as u};
