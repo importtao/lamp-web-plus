@@ -1,1 +1,0 @@
-import{d as n,o,n as t}from"./index.0523a5a3.js";import"./vendor.352e3120.js";var e=n({name:"\u83DC\u53551-1-2"});const a={style:{padding:"30px"}};function r(s,d,p,c,i,_){return o(),t("div",a," \u6211\u662F\u83DC\u53551-1-2 ")}e.render=r;export default e;

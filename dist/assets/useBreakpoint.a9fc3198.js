@@ -1,1 +1,0 @@
-import{r as s}from"./responsiveObserve.43c11602.js";import{w as o,x as u,ai as i}from"./index.0523a5a3.js";function a(){var e=o({}),n=null;return u(function(){n=s.subscribe(function(r){e.value=r})}),i(function(){s.unsubscribe(n)}),e}export{a as u};

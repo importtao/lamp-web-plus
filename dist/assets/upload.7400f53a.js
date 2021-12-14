@@ -1,0 +1,1 @@
+import{u as s,be as o}from"./index.ff8e7350.js";const{uploadUrl:n=""}=s();function u(t,e){return o.uploadFile({url:n,onUploadProgress:e},t)}const r=()=>o.get({url:"/oauth/noToken/stsToken"});export{r as s,u};

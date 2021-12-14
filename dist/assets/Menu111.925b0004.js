@@ -1,0 +1,1 @@
+import{d as n,o as t,n as s,L as r,p as e}from"./index.ff8e7350.js";import"./vendor.352e3120.js";var o=n({name:"Menu111Demo"});const a={class:"p-5"},c=r(" \u591A\u5C42\u7EA7\u7F13\u5B58-\u9875\u97621-1-1 "),d=e("br",null,null,-1),_=e("input",null,null,-1);function i(l,p,u,f,m,h){return t(),s("div",a,[c,d,_])}o.render=i;export default o;
