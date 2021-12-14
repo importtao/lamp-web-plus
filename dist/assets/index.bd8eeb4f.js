@@ -1,0 +1,1 @@
+import{bj as o,bd as e}from"./index.0523a5a3.js";const t=o(()=>e(()=>import("./index.4dc8d370.js"),["/lamp-web-plus/assets/index.4dc8d370.js","/lamp-web-plus/assets/index.0523a5a3.js","/lamp-web-plus/assets/index.03307a49.css","/lamp-web-plus/assets/vendor.352e3120.js"]));export{t as C};

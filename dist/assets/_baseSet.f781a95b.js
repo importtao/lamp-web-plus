@@ -1,0 +1,1 @@
+import{i as _,c as o,t as u,a as v,b as l}from"./index.0523a5a3.js";function I(r,i,e,f){if(!_(r))return r;i=o(i,r);for(var t=-1,x=i.length,g=x-1,s=r;s!=null&&++t<x;){var n=u(i[t]),a=e;if(n==="__proto__"||n==="constructor"||n==="prototype")return r;if(t!=g){var d=s[n];a=f?f(d,n,s):void 0,a===void 0&&(a=_(d)?d:v(i[t+1])?[]:{})}l(s,n,a),s=s[n]}return r}export{I as b};
