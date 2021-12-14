@@ -1,0 +1,1 @@
+import{c as e,t as f,aU as t,a as h,aS as g,aV as d}from"./index.b7a14d4f.js";function x(n,a){return n!=null&&a in Object(n)}function m(n,a,u){a=e(a,n);for(var r=-1,s=a.length,i=!1;++r<s;){var l=f(a[r]);if(!(i=n!=null&&u(n,l)))break;n=n[l]}return i||++r!=s?i:(s=n==null?0:n.length,!!s&&t(s)&&h(l,s)&&(g(n)||d(n)))}function I(n,a){return n!=null&&m(n,a,x)}export{I as h};
