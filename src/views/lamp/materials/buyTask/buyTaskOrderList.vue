@@ -1,4 +1,4 @@
-<template>
+<template><div>
   <PageWrapper title="采购任务详情列表页" contentBackground>
     <Row>
       <Col :span="21">
@@ -40,15 +40,24 @@
           <span>{{record.createUserName}}-{{record.createUserPhone}}</span>
         </template>
       </template>
+      <template #action="{ record }">
+        <TableAction
+          :actions="[
+            {
+              color: 'error',
+              label: '查看详情',
+              onClick: handleToDetail.bind(null, record),
+            }
 
-
-
+          ]"
+        />
+      </template>
     </BasicTable>
 <!--    <template #rightFooter>-->
 <!--      <Button type="primary" danger @click="customCreateBuyOrder" :loading="cusTomBtnLoading">自定义数量发起采购订单</Button>-->
 <!--    </template>-->
   </PageWrapper>
-  <Modal v-model:visible="visible" title="自定义数量发起采购订单" @ok="commitBuyOrder">
+  <Modal v-model:visible="visible" title="自定义数量发起采购订单" @ok="commitBuyOrder" :confirm-loading="spinning">
     <Spin :spinning="spinning">
       <div style="padding: 30px;width: 100%;">
         <Form :model="buyOrder" :label-col=" { span: 8 }" :wrapper-col=" { span: 14 }" :rules="rules" ref="formRef">
@@ -64,7 +73,7 @@
         </Form>
       </div>
     </Spin>
-  </Modal>
+  </Modal></div>
 </template>
 <script lang="ts">
   import {computed, defineComponent, onMounted, ref, unref,createVNode} from 'vue';
@@ -99,15 +108,16 @@
     InputNumber,
     message
   } from "ant-design-vue";
-  import {BasicTable, useTable} from '/@/components/Table';
+  import {BasicTable, useTable,TableAction} from '/@/components/Table';
   import {SettingOutlined, ExclamationCircleOutlined} from '@ant-design/icons-vue';
   import {BuyOrderSaveDTO} from "/@/api/lamp/materials/model/buyOrderModel";
+  import {useGo} from "/@/hooks/web/usePage";
 
 
   export default defineComponent({
     name: 'taskItemDeList',
     components: {
-      BasicTable,
+      BasicTable,TableAction,
       PageWrapper,
       [Divider.name]: Divider,
       Tag,
@@ -123,6 +133,8 @@
       Spin,Form,FormItem,Input,InputNumber,Modal,message
     },
     setup() {
+      const go = useGo();
+
       const {currentRoute} = useRouter();
       const params = computed(() => {
         return unref(currentRoute).params;
@@ -176,9 +188,12 @@
         showTableSetting: false,
         bordered: true,
         rowKey: 'id',
-        rowSelection: {
-          type: 'checkbox',
-        }
+        actionColumn: {
+          width: 120,
+          title: t('common.column.action'),
+          dataIndex: 'action',
+          slots: { customRender: 'action' },
+        },
       })
 
 
@@ -256,6 +271,11 @@
           });
       }
 
+      function handleToDetail(record) {
+        go(`/inner/buyOrderDetail/`+record.id);
+
+      }
+
       const skuSchema = [
         {
           label: '物料-规格',
@@ -310,7 +330,8 @@
         commitBuyOrder,customCreateBuyOrder,
         getTaskItemList,
         btnLoading,
-        cusTomBtnLoading
+        cusTomBtnLoading,
+        handleToDetail
       }
     }
   })

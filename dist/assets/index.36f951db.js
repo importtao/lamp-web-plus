@@ -1,0 +1,1 @@
+import{bj as o,bd as e}from"./index.05ea33df.js";const t=o(()=>e(()=>import("./index.c5b9cd25.js"),["/assets/index.c5b9cd25.js","/assets/index.05ea33df.js","/assets/index.03307a49.css","/assets/vendor.352e3120.js"]));export{t as C};

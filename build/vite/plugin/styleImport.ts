@@ -6,6 +6,7 @@
 import styleImport from 'vite-plugin-style-import';
 
 export function configStyleImportPlugin(isBuild: boolean) {
+  if(1==1) return [];
   if (!isBuild) return [];
   const pwaPlugin = styleImport({
     libs: [

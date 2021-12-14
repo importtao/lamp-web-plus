@@ -170,7 +170,7 @@ export const customFormSchemaRules = (_): Partial<FormSchemaExt>[] => {
   //   fieldType:'Date',
   //   rules:{
   //     type: "method", validator: (rule, value, callback) =>{
-  //       debugger
+
   //       checkDate(value, 'Date', "Past") ? callback() : callback('日期错误')
   //     }, message: '日期错误'
   //   }
@@ -180,5 +180,5 @@ export const customFormSchemaRules = (_): Partial<FormSchemaExt>[] => {
 // function checkDate(value, fieldType, isPass) {
 //   // value._isAMomentObject ? date?.format('YYYY-MM-DD HH:mm:ss') : date;
 //   console.log(value)
-//   debugger
+
 //   return false}

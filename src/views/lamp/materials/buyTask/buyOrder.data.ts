@@ -51,21 +51,21 @@ export const columns: BasicColumn[] = [
   //   dataIndex: 'orderIndex',
   //   // width: 180,
   // },
-  {
-    title: t('lamp.materials.buyOrder.remark'),
-    dataIndex: 'remark',
-    // width: 180,
-  },
-  {
-    title: t('lamp.materials.buyOrder.contractInfo'),
-    dataIndex: 'contractInfo',
-    // width: 180,
-  },
-  {
-    title: t('lamp.materials.buyOrder.supplierInfo'),
-    dataIndex: 'supplierInfo',
-    // width: 180,
-  },
+  // {
+  //   title: t('lamp.materials.buyOrder.remark'),
+  //   dataIndex: 'remark',
+  //   // width: 180,
+  // },
+  // {
+  //   title: t('lamp.materials.buyOrder.contractInfo'),
+  //   dataIndex: 'contractInfo',
+  //   // width: 180,
+  // },
+  // {
+  //   title: t('lamp.materials.buyOrder.supplierInfo'),
+  //   dataIndex: 'supplierInfo',
+  //   // width: 180,
+  // },
   {
     title: t('lamp.common.createTime'),
     dataIndex: 'createTime',

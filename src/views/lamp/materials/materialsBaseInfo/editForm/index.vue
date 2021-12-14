@@ -1,4 +1,4 @@
-<template>
+<template><div>
   <PageWrapper
     class="high-form"
     title="编辑物料"
@@ -37,7 +37,7 @@
     <!--    <template #rightFooter>-->
     <!--      <Button type="primary" @click="submitAll"> 提交{{params.id}}</Button>-->
     <!--    </template>-->
-  </PageWrapper>
+  </PageWrapper></div>
 </template>
 <script lang="ts">
   import {BasicForm, useForm} from '/@/components/Form';
@@ -111,7 +111,6 @@
             message.error('sku不能为空！');
             return
           }
-          debugger
           materialsBaseInfo.value = materialsBaseInfoList[0]
           setFieldsValue(materialsBaseInfo.value)
         })

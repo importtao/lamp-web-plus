@@ -1,0 +1,5 @@
+import{d as c,a$ as i,aW as l,aX as _,r as s,o as r,n,p as e,M as m,aE as u,q as f,aF as v}from"./index.05ea33df.js";import{_ as j}from"./PageWrapper.d9e1596c.js";import"./vendor.352e3120.js";import"./usePageContext.918ba169.js";import"./onMountedOrActivated.a12ac1c0.js";import"./index.dbdd549b.js";import"./index.03402249.js";import"./useBreakpoint.249417d5.js";import"./responsiveObserve.968aa5d0.js";import"./useSize.c28e111d.js";import"./transButton.9a1903a9.js";import"./ArrowLeftOutlined.97d250aa.js";var a=c({components:{ScrollContainer:i,PageWrapper:j}}),D=`.scroll-wrap[data-v-3ec7dee5] {
+  width: 50%;
+  height: 300px;
+  background: #fff;
+}`;const t=v();l("data-v-3ec7dee5");const g={class:"scroll-wrap"},h={class:"p-3"};_();const x=t((S,b,$,w,C,k)=>{const p=s("ScrollContainer"),d=s("PageWrapper");return r(),n(d,{title:"\u6EDA\u52A8\u7EC4\u4EF6\u793A\u4F8B",content:"\u57FA\u4E8Eel-scrollbar"},{default:t(()=>[e("div",g,[e(p,{class:"mt-4"},{default:t(()=>[e("ul",h,[(r(),n(m,null,u(100,o=>e("li",{key:o,class:"p-2",style:{border:"1px solid #eee"}},f(o),1)),64))])]),_:1})])]),_:1})});a.render=x,a.__scopeId="data-v-3ec7dee5";export default a;

@@ -25,7 +25,6 @@ function checkDate(value, fieldType, isPass) {
     // if ("Date" === fieldType ? r = now.format("YYYY-MM-DD") : "DateTime" === fieldType ? r = now.format("YYYY-MM-DD HH:mm:ss") : "Time" === fieldType && (r = now.format("HH:mm:ss")), r) {
     //
     // }
-    // debugger
     return false
   }
 

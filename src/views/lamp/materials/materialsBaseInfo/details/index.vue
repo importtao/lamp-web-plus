@@ -1,4 +1,4 @@
-<template>
+<template><div>
   <PageWrapper title="物料详情页">
 
     <Description
@@ -41,7 +41,7 @@
     <template #rightFooter>
       <Button type="primary" @click="toMaterialsEdit">编辑物料及规格信息</Button>
     </template>
-  </PageWrapper>
+  </PageWrapper></div>
 </template>
 <script lang="ts">
   import {computed, defineComponent, onMounted, ref, unref} from 'vue';

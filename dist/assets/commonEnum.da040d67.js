@@ -1,0 +1,1 @@
+var t;(function(a){a.COPY="copy",a.ADD="add",a.EDIT="edit",a.DELETE="delete"})(t||(t={}));var T;(function(a){a.AUTHORITY="/authority",a.OAUTH="/oauth",a.MATERIALS="/materials",a.ORG="/authority"})(T||(T={}));export{t as A,T as S};

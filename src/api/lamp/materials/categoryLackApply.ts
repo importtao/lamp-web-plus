@@ -4,6 +4,7 @@ import { defHttp } from '/@/utils/http/axios';
 import { RequestEnum } from '/@/enums/httpEnum';
 import { ServicePrefixEnum } from '/@/enums/commonEnum';
 import type { AxiosRequestConfig } from 'axios';
+import {LackApply} from "/@/api/lamp/materials/model/lackApplyModel";
 
 export const Api = {
   Page: {
@@ -32,6 +33,9 @@ export const page = (params: PageParams<CategoryLackApplyPageQuery>) =>
   defHttp.request<PageResult<CategoryLackApply>>({ ...Api.Page, params });
 
 export const query = (params: CategoryLackApply) => defHttp.request<CategoryLackApply[]>({ ...Api.Query, params });
+export const detail = (id:string) => defHttp.request({url: ServicePrefixEnum.MATERIALS + '/categoryLackApply/info/'+id, method: RequestEnum.GET});
+
+export const handler = (params: LackApply) => defHttp.request<LackApply>({ url: ServicePrefixEnum.MATERIALS + '/categoryLackApply/handler', method: RequestEnum.POST, params });
 
 export const save = (params: CategoryLackApplySaveDTO) => defHttp.request<CategoryLackApply>({ ...Api.Save, params });
 

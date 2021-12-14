@@ -32,9 +32,11 @@ export const page = (params: PageParams<LackApplyPageQuery>) =>
   defHttp.request<PageResult<LackApply>>({ ...Api.Page, params });
 
 export const query = (params: LackApply) => defHttp.request<LackApply[]>({ ...Api.Query, params });
+export const detail = (id:string) => defHttp.request({url: ServicePrefixEnum.MATERIALS + '/lackApply/info/'+id, method: RequestEnum.GET});
+
+export const handler = (params: LackApply) => defHttp.request<LackApply>({ url: ServicePrefixEnum.MATERIALS + '/lackApply/handler', method: RequestEnum.POST, params });
 
 export const save = (params: LackApplySaveDTO) => defHttp.request<LackApply>({ ...Api.Save, params });
-
 export const update = (params: LackApplyUpdateDTO) =>
   defHttp.request<LackApply>({ ...Api.Update, params });
 

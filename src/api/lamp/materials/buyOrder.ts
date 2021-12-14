@@ -40,6 +40,7 @@ export const detail = (orderId:string) => defHttp.request({url: ServicePrefixEnu
 
 export const contractAck = (params: any) => defHttp.request({ url: ServicePrefixEnum.MATERIALS + '/buyOrder/contractAck', method: RequestEnum.POST, params });
 export const arrivalAck = (params: any) => defHttp.request({ url: ServicePrefixEnum.MATERIALS + '/buyOrder/arrivalAck', method: RequestEnum.POST, params });
+export const transferAck = (params: any) => defHttp.request({ url: ServicePrefixEnum.MATERIALS + '/buyOrder/transferAck', method: RequestEnum.POST, params });
 export const save = (params: BuyOrderSaveDTO) => defHttp.request<BuyOrder>({ ...Api.Save, params });
 export const customCreateBuyOrder = (params: BuyOrderSaveDTO) => defHttp.request<BuyOrder>({ url: ServicePrefixEnum.MATERIALS + '/buyOrder/customCreateBuyOrder', method: RequestEnum.POST, params });
 export const create = (skuId:string) => defHttp.request<BuyOrder>({ url: ServicePrefixEnum.MATERIALS + '/buyOrder/create/'+skuId, method: RequestEnum.POST});

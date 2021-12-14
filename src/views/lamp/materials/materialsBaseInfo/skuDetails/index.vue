@@ -1,90 +1,93 @@
 <template>
-  <PageWrapper title="物料详情页" contentBackground>
-    <Description
-      size="middle" title="物料信息"
-      :bordered="false"
-      :column="4"
-      :data="materialsBaseInfo"
-      :schema="materialsBaseInfoSchema"
-    />
-    <a-divider/>
-    <Description
-      size="middle"
-      layout="vertical"
-      title="规格信息"
-      :bordered="true"
-      :column="9"
-      :data="sku"
-      :schema="skuSchema"
-    />
-    <a-divider/>
+  <div>
+    <PageWrapper title="物料详情页" contentBackground>
+      <Description
+        size="middle" title="物料信息"
+        :bordered="false"
+        :column="4"
+        :data="materialsBaseInfo"
+        :schema="materialsBaseInfoSchema"
+      />
+      <a-divider/>
+      <Description
+        size="middle"
+        layout="vertical"
+        title="规格信息"
+        :bordered="true"
+        :column="9"
+        :data="sku"
+        :schema="skuSchema"
+      />
+      <a-divider/>
 
-    <BasicTable @register="registerRefundTable">
-      <template #bodyCell="{ column, record, index }">
-        <!--        </template>-->
-        <template v-if="column.key === 'option'">
-          <Button danger @click="changeQuantity(record)">
-            <template #icon>
-              <SettingOutlined/>
-            </template>
-            变更库存
-          </Button>
+      <BasicTable @register="registerRefundTable">
+        <template #bodyCell="{ column, record, index }">
+          <!--        </template>-->
+          <template v-if="column.key === 'option'">
+            <Button danger @click="changeQuantity(record)">
+              <template #icon>
+                <SettingOutlined/>
+              </template>
+              变更库存
+            </Button>
+          </template>
         </template>
-      </template>
-    </BasicTable>
-    <a-divider>库存变更记录</a-divider>
+      </BasicTable>
+      <a-divider>库存变更记录</a-divider>
 
-    <!--    <BasicTable @register="registerTimeTable"/>-->
-    <Empty v-if="!recordList || recordList.length < 1"></Empty>
-    <div style="margin: auto;padding: 30px;">
-      <Timeline mode="alternate" :reverse="reverse">
-        <TimelineItem :color="!recordItem.isInFlag?'red':'green'" v-for="recordItem in recordList"
-                      :position="!recordItem.isInFlag?'left':'right'">
-          <!--      <clock-circle-outlined style="font-size: 16px" />-->
-          <template #dot v-if="!recordItem.isInFlag">
-            <RightCircleFilled two-tone-color="#52c41a" style="font-size: 24px"/>
-          </template>
-          <template #dot v-else>
-            <LeftCircleFilled two-tone-color="#eb2f96" style="font-size: 24px"/>
-          </template>
-          <Card size="small" :title="recordItem.createTime">
-            <!--        <template #extra><a href="#">more</a></template>-->
-            <Descriptions :column="3" bordered layout="vertical">
-              <DescriptionsItem label="数量">{{recordItem.quantity}}</DescriptionsItem>
-              <DescriptionsItem label="仓库">{{warehouseMap.get(recordItem.warehouseId)}}
-              </DescriptionsItem>
-              <DescriptionsItem label="操作名称">{{recordItem.optionName}}</DescriptionsItem>
-            </Descriptions>
-          </Card>
-        </TimelineItem>
-      </Timeline>
-    </div>
+      <!--    <BasicTable @register="registerTimeTable"/>-->
+      <Empty v-if="!recordList || recordList.length < 1"></Empty>
+      <div style="margin: auto;padding: 30px;">
+        <Timeline mode="alternate" :reverse="reverse">
+          <TimelineItem :color="!recordItem.isInFlag?'red':'green'" v-for="recordItem in recordList"
+                        :position="!recordItem.isInFlag?'left':'right'">
+            <!--      <clock-circle-outlined style="font-size: 16px" />-->
+            <template #dot v-if="!recordItem.isInFlag">
+              <RightCircleFilled two-tone-color="#52c41a" style="font-size: 24px"/>
+            </template>
+            <template #dot v-else>
+              <LeftCircleFilled two-tone-color="#eb2f96" style="font-size: 24px"/>
+            </template>
+            <Card size="small" :title="recordItem.createTime">
+              <!--        <template #extra><a href="#">more</a></template>-->
+              <Descriptions :column="3" bordered layout="vertical">
+                <DescriptionsItem label="数量">{{recordItem.quantity}}</DescriptionsItem>
+                <DescriptionsItem label="仓库">{{warehouseMap.get(recordItem.warehouseId)}}
+                </DescriptionsItem>
+                <DescriptionsItem label="操作名称">{{recordItem.optionName}}</DescriptionsItem>
+              </Descriptions>
+            </Card>
+          </TimelineItem>
+        </Timeline>
+      </div>
 
-    <Modal v-model:visible="visible" title="变更库存" @ok="commitChangeQuantity">
-      <spin :spinning="spinning">
-        <div style="padding: 30px;width: 100%;">
-          <Form :model="currentWarehouseInventory" :label-col=" { span: 4 }"
-                :wrapper-col=" { span: 14 }" :rules="rules" ref="formRef">
-            <FormItem label="库房" name="warehouseName">
-              <Input v-model:value="currentWarehouseInventory.warehouseName" disabled/>
-            </FormItem>
-            <FormItem label="库存数" name="quantity">
-              <InputNumber v-model:value="currentWarehouseInventory.quantity" :min="0"
-                           :step="1.000"/>
-            </FormItem>
-            <FormItem label="安全库存" name="safeQuantity">
-              <InputNumber v-model:value="currentWarehouseInventory.safeQuantity" :min="0"
-                           :step="1.000"/>
-            </FormItem>
-            <FormItem label="修改说明" name="remark">
-              <Input v-model:value="currentWarehouseInventory.remark"/>
-            </FormItem>
-          </Form>
-        </div>
-      </spin>
-    </Modal>
+      <Modal v-model:visible="visible" title="变更库存" @ok="commitChangeQuantity"
+             :confirm-loading="spinning">
+        <spin :spinning="spinning">
+          <div style="padding: 30px;width: 100%;">
+            <Form :model="currentWarehouseInventory" :label-col=" { span: 4 }"
+                  :wrapper-col=" { span: 14 }" :rules="rules" ref="formRef">
+              <FormItem label="库房" name="warehouseName">
+                <Input v-model:value="currentWarehouseInventory.warehouseName" disabled/>
+              </FormItem>
+              <FormItem label="库存数" name="quantity">
+                <InputNumber v-model:value="currentWarehouseInventory.quantity" :min="0"
+                             :step="1.000"/>
+              </FormItem>
+              <FormItem label="安全库存" name="safeQuantity">
+                <InputNumber v-model:value="currentWarehouseInventory.safeQuantity" :min="0"
+                             :step="1.000"/>
+              </FormItem>
+              <FormItem label="修改说明" name="remark">
+                <Input v-model:value="currentWarehouseInventory.remark"/>
+              </FormItem>
+            </Form>
+          </div>
+        </spin>
+      </Modal>
 
-  </PageWrapper>
+    </PageWrapper>
+  </div>
 </template>
 <script lang="ts">
   import {computed, defineComponent, onMounted, ref, unref} from 'vue';
@@ -124,7 +127,6 @@
   import {Sku,} from "/@/api/lamp/materials/model/skuModel";
 
   import {MaterialsBaseInfo} from "/@/api/lamp/materials/model/materialsBaseInfoModel";
-  import {WarehouseInventory} from "/@/api/lamp/materials/model/warehouseInventoryModel";
 
   const materialsBaseInfoSchema: DescItem[] = [
     // imgUrl: '图片',
@@ -333,7 +335,7 @@
         })
         listBySkuId(params.value.id).then(res => {
           warehouseInventoryList.value = res
-          sku.value.totalQuantity = eval(warehouseInventoryList.value.map(item=>item.quantity).join("+"))
+          sku.value.totalQuantity = eval(warehouseInventoryList.value.map(item => item.quantity).join("+"))
 
         })
         recordListBySkuId(params.value.id).then(res => {

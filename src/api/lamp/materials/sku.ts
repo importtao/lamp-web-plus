@@ -38,6 +38,7 @@ export const page = (params: PageParams<SkuPageQuery>) =>
 export const query = (params: Sku) => defHttp.request<Sku[]>({ ...Api.Query, params });
 export const getSkuList = (materialsId: string) => defHttp.request<Sku[]>({ url: ServicePrefixEnum.MATERIALS + '/sku/byMaterialsId/'+materialsId, method: RequestEnum.GET });
 export const bySkuId = (skuId: string) => defHttp.request({ url: ServicePrefixEnum.MATERIALS + '/sku/bySkuId/'+skuId, method: RequestEnum.GET });
+export const getShowList = (materialsId: string) => defHttp.request({ url: ServicePrefixEnum.MATERIALS + '/sku/getShowList/'+materialsId, method: RequestEnum.GET });
 
 export const save = (params: SkuSaveDTO) => defHttp.request<Sku>({ ...Api.Save, params });
 export const saveList = (params: Array<SkuDTO>) => defHttp.request({ ...Api.saveList, params });

@@ -11,13 +11,11 @@
         <TableAction
           :actions="[
             {
-              label: '查看详情',
               color: 'error',
-              popConfirm: {
-                title: '确认拒绝？',
-                confirm: handleDelete.bind(null, record),
-              },
-            },
+              label: '查看详情',
+              onClick: handleDetail.bind(null, record),
+            }
+
           ]"
         />
       </template>
@@ -41,7 +39,8 @@
         </template>
       </template>
     </BasicTable>
-    <EditModal @register="registerDrawer" @success="handleSuccess" />
+<!--    <EditModal @register="registerDrawer" @success="handleSuccess" />-->
+    <DetailModal @register="registerDrawer" @success="handleSuccess" />
   </PageWrapper>
 </template>
 <script lang="ts">
@@ -56,12 +55,13 @@
   import { page, remove } from '/@/api/lamp/materials/lackApply';
   import { columns, searchFormSchema } from './lackApply.data';
   import EditModal from './Edit.vue';
+  import DetailModal from './detail.vue';
   import {Image,ImagePreviewGroup} from 'ant-design-vue';
   import {Badge} from 'ant-design-vue';
 
   export default defineComponent({
     name: 'LackApplyManagement',
-    components: { BasicTable, PageWrapper, EditModal, TableAction ,Image,ImagePreviewGroup,Badge},
+    components: { BasicTable, PageWrapper, EditModal,DetailModal, TableAction ,Image,ImagePreviewGroup,Badge},
     setup() {
       const { t } = useI18n();
       const { createMessage, createConfirm } = useMessage();
@@ -95,6 +95,15 @@
 
       // 弹出复制页面
       function handleCopy(record: Recordable, e) {
+        e.stopPropagation();
+        openDrawer(true, {
+          record,
+          type: ActionEnum.COPY,
+        });
+      }
+
+      // 弹出复制页面
+      function handleDetail(record: Recordable, e) {
         e.stopPropagation();
         openDrawer(true, {
           record,
@@ -157,6 +166,7 @@
         t,
         registerTable,
         registerDrawer,
+        handleDetail,
         handleAdd,
         handleCopy,
         handleEdit,

@@ -35,6 +35,7 @@ export const page = (params: PageParams<MaterialsBaseInfoPageQuery>) =>
 export const query = (params: MaterialsBaseInfo) => defHttp.request<MaterialsBaseInfo[]>({ ...Api.Query, params });
 
 export const getInfoByMaterialsId = (materialsId: string) => defHttp.request<Map<String,Object>>({ url: ServicePrefixEnum.MATERIALS + '/materialsBaseInfo/byMaterialsId/'+materialsId, method: RequestEnum.GET });
+export const nameIdList = () => defHttp.request<Map<String,Object>>({ url: ServicePrefixEnum.MATERIALS + '/materialsBaseInfo/nameIdList', method: RequestEnum.GET });
 
 
 export const save = (params: MaterialsBaseInfoSaveDTO) => defHttp.request<MaterialsBaseInfo>({ ...Api.Save, params });

@@ -10,15 +10,12 @@
       <template #action="{ record }">
         <TableAction
           :actions="[
-
             {
-              label: '查看详情',
               color: 'error',
-              popConfirm: {
-                title: '确认拒绝？',
-                confirm: handleDelete.bind(null, record),
-              },
-            },
+              label: '查看详情',
+              onClick: handleDetail.bind(null, record),
+            }
+
           ]"
         />
       </template>
@@ -37,7 +34,7 @@
         </template>
       </template>
     </BasicTable>
-    <EditModal @register="registerDrawer" @success="handleSuccess" />
+    <DetailModal @register="registerDrawer" @success="handleSuccess" />
   </PageWrapper>
 </template>
 <script lang="ts">
@@ -51,13 +48,13 @@
   import { ActionEnum } from '/@/enums/commonEnum';
   import { page, remove } from '/@/api/lamp/materials/categoryLackApply';
   import { columns, searchFormSchema } from './categoryLackApply.data';
-  import EditModal from './Edit.vue';
+  import DetailModal from './detail.vue';
 
   import {Badge} from 'ant-design-vue';
 
   export default defineComponent({
     name: 'CategoryLackApplyManagement',
-    components: { BasicTable, PageWrapper, EditModal, TableAction,Badge },
+    components: { BasicTable, PageWrapper, DetailModal, TableAction,Badge },
     setup() {
       const { t } = useI18n();
       const { createMessage, createConfirm } = useMessage();
@@ -113,6 +110,13 @@
           type: ActionEnum.EDIT,
         });
       }
+      function handleDetail(record: Recordable, e) {
+        e.stopPropagation();
+        openDrawer(true, {
+          record,
+          type: ActionEnum.COPY,
+        });
+      }
 
       // 新增或编辑成功回调
       function handleSuccess() {
@@ -157,6 +161,7 @@
         handleCopy,
         handleEdit,
         handleDelete,
+        handleDetail,
         handleSuccess,
         handleBatchDelete,
       };

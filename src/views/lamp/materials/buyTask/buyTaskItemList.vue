@@ -1,4 +1,4 @@
-<template>
+<template><div>
   <PageWrapper title="采购任务详情列表页" contentBackground>
     <Row>
       <Col :span="21">
@@ -48,7 +48,7 @@
           <Button type="primary" danger @click="customCreateBuyOrder" :loading="cusTomBtnLoading">自定义数量发起采购订单</Button>
         </template>
   </PageWrapper>
-  <Modal v-model:visible="visible" title="自定义数量发起采购订单" @ok="commitBuyOrder">
+  <Modal v-model:visible="visible" title="自定义数量发起采购订单" @ok="commitBuyOrder" :confirm-loading="spinning">
     <Spin :spinning="spinning">
       <div style="padding: 30px;width: 100%;">
         <Form :model="buyOrder" :label-col=" { span: 8 }" :wrapper-col=" { span: 14 }" :rules="rules" ref="formRef">
@@ -64,7 +64,7 @@
         </Form>
       </div>
     </Spin>
-  </Modal>
+  </Modal></div>
 </template>
 <script lang="ts">
   import {computed, defineComponent, onMounted, ref, unref,createVNode} from 'vue';
@@ -154,7 +154,7 @@
       function getTaskItemList() {
         taskItemListBySkuId(params.value.id).then(res => {
           buyTaskList.value = res
-          sum.value = eval(buyTaskList.value.map(item=>item.quantity).join("+"))
+          sum.value = eval(buyTaskList.value.map(item=>item.quantity).join("+")) || 0
         })
       }
 
@@ -165,7 +165,7 @@
 
       // 表格
       const [registerTable, {reload, getSelectRowKeys}] = useTable({
-        title: t('lamp.materials.buyTaskItem.table.title'),
+        title: '待处理采购任务列表',
         dataSource: buyTaskList,
         pagination: false,
         columns,
